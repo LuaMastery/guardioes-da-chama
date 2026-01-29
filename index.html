@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardiões da Chama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        flame: {
+                            500: '#ff4500',
+                            600: '#cc3700',
+                            700: '#aa2f00',
+                        },
+                        swe: {
+                            500: '#fbbf24',
+                            600: '#f59e0b',
+                        },
+                        void: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#2a2a2a',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Cinzel', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(255, 69, 0, 0.3)' },
+                            '100%': { boxShadow: '0 0 30px rgba(255, 69, 0, 0.6)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff4500;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cc3700;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ff4500, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-void-900">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-flame-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">🔥</span>
+                    </div>
+                    <span class="font-display text-xl font-bold text-white">Guardiões da Chama</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-gray-300 hover:text-flame-500 transition-colors">Início</a>
+                    <a href="#biblioteca" class="text-gray-300 hover:text-flame-500 transition-colors">Biblioteca</a>
+                    <a href="#sobre" class="text-gray-300 hover:text-flame-500 transition-colors">Sobre</a>
+                    <a href="#contato" class="text-gray-300 hover:text-flame-500 transition-colors">Contato</a>
+                </div>
+                
+                <button class="md:hidden text-gray-300 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-void-900 via-void-800 to-void-900"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-64 h-64 bg-flame-500 rounded-full filter blur-3xl animate-float"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-swe-500 rounded-full filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl md:text-7xl font-display font-bold mb-6">
+                <span class="gradient-text">Guardiões da Chama</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Protetores da luz, defensores da verdade. Uma comunidade dedicada à moderação e proteção digital.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#biblioteca" class="px-8 py-3 bg-flame-500 text-white rounded-lg hover:bg-flame-600 transition-all transform hover:scale-105 animate-glow">
+                    Explorar Biblioteca
+                </a>
+                <a href="#sobre" class="px-8 py-3 border-2 border-flame-500 text-flame-500 rounded-lg hover:bg-flame-500 hover:text-white transition-all">
+                    Conhecer Mais
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Library Section -->
+    <section id="biblioteca" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-display font-bold mb-4">
+                    <span class="gradient-text">Biblioteca do Conhecimento</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Uma coleção completa de livros e guias para dominar a arte da moderação e proteção digital.
+                </p>
+            </div>
+
+            <!-- Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="glass rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-flame-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">📚</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Fundamentos</h3>
+                    <p class="text-gray-300">Os princípios básicos da moderação e proteção digital.</p>
+                </div>
+                
+                <div class="glass rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-swe-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-black text-xl">🛡️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Técnicas Avançadas</h3>
+                    <p class="text-gray-300">Estratégias e ferramentas para moderação profissional.</p>
+                </div>
+                
+                <div class="glass rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-flame-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">⚔️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Casos de Batalha</h3>
+                    <p class="text-gray-300">Histórias reais e lições aprendidas no campo.</p>
+                </div>
+            </div>
+
+            <!-- Featured Books -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-flame-500 to-void-900 flex items-center justify-center">
+                        <span class="text-white text-6xl">📖</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">O Livro Mestre</h3>
+                        <p class="text-gray-300 mb-4">A enciclopédia completa da moderação digital.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-flame-500">Nível Mestre</span>
+                            <button class="px-4 py-2 bg-flame-500 text-white rounded hover:bg-flame-600 transition-colors">
+                                Ler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-swe-500 to-void-900 flex items-center justify-center">
+                        <span class="text-black text-6xl">📜</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Códigos de Honra</h3>
+                        <p class="text-gray-300 mb-4">Os princípios éticos dos guardiões.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-swe-500">Nível Iniciante</span>
+                            <button class="px-4 py-2 bg-flame-500 text-white rounded hover:bg-flame-600 transition-colors">
+                                Ler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-flame-500 to-void-900 flex items-center justify-center">
+                        <span class="text-white text-6xl">⚡</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Táticas de Batalha</h3>
+                        <p class="text-gray-300 mb-4">Estratégias avançadas de moderação.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-flame-500">Nível Avançado</span>
+                            <button class="px-4 py-2 bg-flame-500 text-white rounded hover:bg-flame-600 transition-colors">
+                                Ler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-void-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-display font-bold mb-6">
+                        <span class="gradient-text">Sobre os Guardiões</span>
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Somos uma comunidade dedicada à proteção e moderação dos espaços digitais. 
+                        Nossa missão é manter a ordem, a justiça e a harmonia no mundo online.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Cada guardião é treinado nas artes da moderação, da diplomacia e da resolução 
+                        de conflitos, sempre agindo com ética e responsabilidade.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-flame-500 mb-2">1000+</div>
+                            <div class="text-gray-300">Guardiões Ativos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-swe-500 mb-2">50+</div>
+                            <div class="text-gray-300">Comunidades Protegidas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="glass rounded-lg p-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-flame-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-white text-2xl">🛡️</span>
+                                </div>
+                                <h3 class="font-bold text-white mb-2">Proteção</h3>
+                                <p class="text-sm text-gray-300">Defendemos os vulneráveis</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-swe-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-black text-2xl">⚖️</span>
+                                </div>
+                                <h3 class="font-bold text-white mb-2">Justiça</h3>
+                                <p class="text-sm text-gray-300">Aplicamos as regras com fairness</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-flame-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-white text-2xl">🔥</span>
+                                </div>
+                                <h3 class="font-bold text-white mb-2">Paixão</h3>
+                                <p class="text-sm text-gray-300">Acreditamos na nossa missão</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-swe-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-black text-2xl">🤝</span>
+                                </div>
+                                <h3 class="font-bold text-white mb-2">Comunidade</h3>
+                                <p class="text-sm text-gray-300">Trabalhamos em equipe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-void-900 border-t border-void-700 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-flame-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">🔥</span>
+                        </div>
+                        <span class="font-display text-xl font-bold text-white">Guardiões da Chama</span>
+                    </div>
+                    <p class="text-gray-300">
+                        Uma comunidade dedicada à moderação e proteção digital.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-white mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#inicio" class="hover:text-flame-500 transition-colors">Início</a></li>
+                        <li><a href="#biblioteca" class="hover:text-flame-500 transition-colors">Biblioteca</a></li>
+                        <li><a href="#sobre" class="hover:text-flame-500 transition-colors">Sobre</a></li>
+                        <li><a href="#contato" class="hover:text-flame-500 transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-white mb-4">Conecte-se</h3>
+                    <p class="text-gray-300 mb-4">
+                        Junte-se à comunidade dos guardiões.
+                    </p>
+                    <button class="px-6 py-2 bg-flame-500 text-white rounded-lg hover:bg-flame-600 transition-colors">
+                        Entrar em Contato
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-void-700 text-center text-gray-400">
+                <p>&copy; 2026 Guardiões da Chama. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('button.md\\:hidden');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'hidden md:hidden glass fixed top-16 left-0 right-0 z-40';
+        mobileMenu.innerHTML = `
+            <div class="px-4 py-6 space-y-4">
+                <a href="#inicio" class="block text-gray-300 hover:text-flame-500 transition-colors">Início</a>
+                <a href="#biblioteca" class="block text-gray-300 hover:text-flame-500 transition-colors">Biblioteca</a>
+                <a href="#sobre" class="block text-gray-300 hover:text-flame-500 transition-colors">Sobre</a>
+                <a href="#contato" class="block text-gray-300 hover:text-flame-500 transition-colors">Contato</a>
+            </div>
+        `;
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            document.body.appendChild(mobileMenu);
+        });
+    </script>
+</body>
+</html>
