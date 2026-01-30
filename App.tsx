@@ -658,7 +658,7 @@ const CreditsSection = () => (
          <h2 className="font-display text-4xl text-white mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700">Arquitetos da Chama</h2>
          <p className="font-serif text-zinc-500 italic mb-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">Aqueles que construíram o templo e acenderam a luz.</p>
          
-         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {/* Doom Reaper Card */}
             <div className="group relative p-8 border border-flame-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-flame-500/50 transition-all duration-500 animate-in slide-in-from-left-8 duration-1000 delay-200">
                <div className="absolute inset-0 bg-gradient-to-br from-flame-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
@@ -688,10 +688,25 @@ const CreditsSection = () => (
                    </p>
                </div>
             </div>
+
+            {/* GitHub Pages Card */}
+            <div className="group relative p-8 border border-green-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-green-500/50 transition-all duration-500 animate-in slide-in-from-bottom-8 duration-1000 delay-400">
+               <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+               <div className="relative z-10 flex flex-col items-center">
+                   <div className="w-16 h-16 rounded-full bg-black border border-green-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all">
+                       <Cpu className="w-8 h-8 text-green-400" />
+                   </div>
+                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">GitHub Pages</h3>
+                   <p className="font-serif text-green-400/80 text-sm uppercase tracking-widest mb-6">Hospedagem & Disponibilidade</p>
+                   <p className="text-zinc-400 text-sm leading-relaxed">
+                       Pela infraestrutura estável, distribuição global e plataforma confiável que mantém o templo digital acessível a todos os guardiões. A fundação invisível que sustenta o conhecimento.
+                   </p>
+               </div>
+            </div>
          </div>
 
          <div className="mt-24 pt-12 border-t border-white/5 text-center animate-in fade-in duration-1000 delay-500">
-             <p className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Guardiões da Chama © 2024</p>
+             <p className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Guardiões da Chama &copy; 2024</p>
          </div>
       </div>
     </section>
