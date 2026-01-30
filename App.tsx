@@ -813,9 +813,6 @@ const BookCard: React.FC<{
         <p className="text-sm text-zinc-400 line-clamp-3 font-serif leading-relaxed mb-6 border-l border-zinc-700 pl-4 group-hover:border-flame-500 transition-colors">
           {book.description}
         </p>
-        <div className="flex items-center text-xs font-bold tracking-widest text-white uppercase opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-          Ler Escritura <ChevronRight className="w-4 h-4 ml-1" />
-        </div>
       </div>
     </div>
   );
