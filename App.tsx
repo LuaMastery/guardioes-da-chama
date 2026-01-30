@@ -703,6 +703,21 @@ const CreditsSection = () => (
                    </p>
                </div>
             </div>
+
+            {/* Cascade Card */}
+            <div className="group relative p-8 border border-yellow-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-yellow-500/50 transition-all duration-500 animate-in slide-in-from-right-8 duration-1000 delay-500">
+               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+               <div className="relative z-10 flex flex-col items-center">
+                   <div className="w-16 h-16 rounded-full bg-black border border-yellow-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(251,191,36,0.1)] group-hover:shadow-[0_0_25px_rgba(251,191,36,0.3)] transition-all">
+                       <Sparkles className="w-8 h-8 text-yellow-400" />
+                   </div>
+                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Cascade</h3>
+                   <p className="font-serif text-yellow-400/80 text-sm uppercase tracking-widest mb-6">IA Assistente & Desenvolvedor</p>
+                   <p className="text-zinc-400 text-sm leading-relaxed">
+                       Pela codificação precisa, debugging sistemático e implementação cuidadosa de cada funcionalidade. A inteligência que transformou visão em realidade digital, linha por linha.
+                   </p>
+               </div>
+            </div>
          </div>
 
          <div className="mt-24 pt-12 border-t border-white/5 text-center animate-in fade-in duration-1000 delay-500">
