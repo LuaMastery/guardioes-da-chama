@@ -1,0 +1,61 @@
+const BookCard: React.FC<{ 
+  book: Book; 
+  onClick: () => void;
+  onMouseMove: (e: React.MouseEvent) => void;
+  onMouseLeave: () => void;
+}> = ({ book, onClick, onMouseMove, onMouseLeave }) => {
+  const { playHover, playClick } = useSound();
+  
+  const getBookIcon = (title: string) => {
+    if (title.includes("Moderação") || title.includes("Proteção")) return <Shield className="w-8 h-8" />;
+    if (title.includes("Guia") || title.includes("Manual")) return <BookOpen className="w-8 h-8" />;
+    if (title.includes("Técnico") || title.includes("Terminal")) return <Terminal className="w-8 h-8" />;
+    if (title.includes("Comunidade") || title.includes("Gestão")) return <Users className="w-8 h-8" />;
+    if (title.includes("Crise") || title.includes("Segurança")) return <AlertTriangle className="w-8 h-8" />;
+    return <BookOpen className="w-8 h-8" />;
+  };
+  
+  return (
+    <div 
+      onMouseEnter={playHover}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      onClick={() => { playClick(); onClick(); }}
+      className="group relative bg-zinc-900/50 border border-white/5 rounded-lg overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(255,69,0,0.15)] hover:border-flame-500/50 transition-all duration-300"
+    >
+      {/* Header with icon */}
+      <div className="relative h-32 bg-gradient-to-br from-flame-500/20 to-zinc-900/80 flex items-center justify-center border-b border-white/5">
+        <div className="text-flame-400 group-hover:text-flame-300 transition-colors">
+          {getBookIcon(book.title)}
+        </div>
+      </div>
+      
+      {/* Content */}
+      <div className="p-6 flex flex-col h-48">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xs font-bold text-flame-500 uppercase tracking-wider">{book.difficulty}</span>
+          <span className="text-xs text-zinc-500">•</span>
+          <span className="text-xs text-zinc-400">{book.platform}</span>
+        </div>
+        
+        <h3 className="font-display text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-flame-400 transition-colors">
+          {book.title}
+        </h3>
+        
+        <p className="text-sm text-zinc-400 italic mb-3">{book.subtitle}</p>
+        
+        <div className="flex flex-wrap gap-1 mb-3">
+          {book.tags.slice(0, 2).map(tag => (
+            <span key={tag} className="text-xs px-2 py-1 bg-zinc-800 text-zinc-300 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+        
+        <p className="text-xs text-zinc-500 line-clamp-2 mt-auto leading-relaxed">
+          {book.description}
+        </p>
+      </div>
+    </div>
+  );
+};
