@@ -689,6 +689,14 @@ const CreditsSection = () => (
                </div>
             </div>
 
+            {/* Texto Centralizado - Guardiões do Conhecimento */}
+            <div className="md:col-span-2 flex items-center justify-center py-8 animate-in fade-in duration-1000 delay-300">
+              <div className="text-center">
+                <h3 className="font-display text-3xl text-flame-400 font-bold tracking-wide mb-2">Guardiões do Conhecimento</h3>
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-flame-500 to-transparent mx-auto"></div>
+              </div>
+            </div>
+
             {/* GitHub Pages Card */}
             <div className="group relative p-8 border border-green-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-green-500/50 transition-all duration-500 animate-in slide-in-from-bottom-8 duration-1000 delay-400">
                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
