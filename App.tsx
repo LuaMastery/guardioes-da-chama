@@ -1,50 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Book, Chapter, InteractiveComponentType } from './types';
 import { LIBRARY_BOOKS } from './constants';
-import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Terminal, Activity, Layers, MessageSquare, Code, AlertTriangle, Volume2, StopCircle, Loader2, Pause, Play, Mic, Maximize2, Minimize2, Gauge, Sparkles, User, Crown, Cpu, Bell } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
+import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Terminal, Activity, Layers, MessageSquare, Code, AlertTriangle, Maximize2, Minimize2, Sparkles, User, Crown, Cpu, Bell } from 'lucide-react';
 
 declare var process: any;
-
-// --- Constants ---
-const VOICES = ['Puck', 'Charon', 'Kore', 'Fenrir', 'Zephyr'];
-
-// --- Audio Helper Functions (from Live API examples) ---
-
-function decodeBase64(base64: string) {
-  const binaryString = atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes;
-}
-
-async function decodePCM(
-  data: Uint8Array,
-  ctx: AudioContext,
-  sampleRate: number = 24000,
-  numChannels: number = 1
-): Promise<AudioBuffer> {
-  const dataInt16 = new Int16Array(data.buffer);
-  const frameCount = dataInt16.length / numChannels;
-  const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
-
-  for (let channel = 0; channel < numChannels; channel++) {
-    const channelData = buffer.getChannelData(channel);
-    for (let i = 0; i < frameCount; i++) {
-      channelData[i] = dataInt16[i * numChannels + channel] / 32768.0;
-    }
-  }
-  return buffer;
-}
-
-// Strip HTML tags to get clean text for TTS
-function stripHtml(html: string) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body.textContent || "";
-}
 
 // --- Audio System (UI SFX) ---
 
@@ -896,184 +855,21 @@ const ReaderModal = ({ book, onClose }: { book: Book; onClose: () => void }) => 
   const contentRef = useRef<HTMLDivElement>(null);
   const { playHover, playClick } = useSound();
 
-  // TTS State
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isLoadingAudio, setIsLoadingAudio] = useState(false);
-  const [selectedVoice, setSelectedVoice] = useState('Kore');
   const [isReadingMode, setIsReadingMode] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
-  
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
-  const audioBufferRef = useRef<AudioBuffer | null>(null);
-  
-  // Timing state to handle pause/resume offsets
-  const startTimeRef = useRef<number>(0);
-  const elapsedTimeRef = useRef<number>(0);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'unset';
-      stopAudio(true); // Stop and reset on unmount/close
     };
   }, []);
   
-  // Stop audio when changing chapters
+  // Reset scroll when changing chapters
   useEffect(() => {
-    stopAudio(true);
     if (contentRef.current) {
       contentRef.current.scrollTop = 0;
     }
   }, [activeChapterId]);
-
-  const stopAudio = (resetBuffer = false) => {
-    if (sourceNodeRef.current) {
-      try {
-        sourceNodeRef.current.stop();
-      } catch (e) { /* ignore if already stopped */ }
-      sourceNodeRef.current = null;
-    }
-    
-    setIsPlaying(false);
-    setIsPaused(false);
-    setIsLoadingAudio(false);
-    
-    if (resetBuffer) {
-        elapsedTimeRef.current = 0;
-        audioBufferRef.current = null;
-    } else {
-        elapsedTimeRef.current = 0;
-    }
-  };
-
-  const playBuffer = (buffer: AudioBuffer, offset: number = 0) => {
-    if (!audioContextRef.current) return;
-
-    const source = audioContextRef.current.createBufferSource();
-    source.buffer = buffer;
-    source.playbackRate.value = playbackSpeed; // Apply current speed
-    source.connect(audioContextRef.current.destination);
-    
-    source.onended = () => {
-       setIsPlaying(false);
-    };
-
-    sourceNodeRef.current = source;
-    source.start(0, offset);
-    startTimeRef.current = audioContextRef.current.currentTime;
-    setIsPlaying(true);
-    setIsPaused(false);
-  };
-  
-  const handleSpeedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSpeed = parseFloat(e.target.value);
-    
-    // If playing, we need to adjust the source node immediately without resetting audio
-    if (isPlaying && sourceNodeRef.current && audioContextRef.current) {
-        // 1. Calculate how much buffer has been played so far with the OLD speed
-        const now = audioContextRef.current.currentTime;
-        const rawTimeSinceStart = now - startTimeRef.current;
-        const bufferConsumed = rawTimeSinceStart * playbackSpeed;
-        
-        // 2. Add this to the accumulated elapsed time
-        elapsedTimeRef.current += bufferConsumed;
-        
-        // 3. Reset the start time to NOW, so future calculations start from here
-        startTimeRef.current = now;
-        
-        // 4. Update the speed on the live node
-        sourceNodeRef.current.playbackRate.value = newSpeed;
-    }
-    
-    setPlaybackSpeed(newSpeed);
-  };
-
-  const handleTogglePlay = async () => {
-    // 1. If currently playing, PAUSE it.
-    if (isPlaying) {
-       if (audioContextRef.current && sourceNodeRef.current) {
-          sourceNodeRef.current.stop();
-          // Calculate elapsed time considering the speed it was playing at
-          const rawElapsed = audioContextRef.current.currentTime - startTimeRef.current;
-          elapsedTimeRef.current += rawElapsed * playbackSpeed; 
-       }
-       setIsPlaying(false);
-       setIsPaused(true);
-       return;
-    }
-
-    // 2. If paused and we have buffer, RESUME it.
-    if (isPaused && audioBufferRef.current) {
-        // Resume from the calculated buffer offset
-        playBuffer(audioBufferRef.current, elapsedTimeRef.current);
-        return;
-    }
-
-    // 3. If starting from scratch (or reset).
-    if (!process.env.API_KEY) {
-      alert("Chave API não configurada.");
-      return;
-    }
-
-    setIsLoadingAudio(true);
-    playClick();
-
-    try {
-      const plainText = stripHtml(activeChapter.content);
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-preview-tts',
-        contents: {
-            parts: [{ text: plainText }]
-        },
-        config: {
-          responseModalities: ['AUDIO'],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: selectedVoice }
-            }
-          }
-        }
-      });
-
-      const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-
-      if (!base64Audio) {
-        throw new Error("Nenhum áudio gerado");
-      }
-
-      // Initialize Audio Context if needed
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({sampleRate: 24000});
-      }
-      
-      if (audioContextRef.current.state === 'suspended') {
-        await audioContextRef.current.resume();
-      }
-
-      const audioBytes = decodeBase64(base64Audio);
-      const audioBuffer = await decodePCM(audioBytes, audioContextRef.current, 24000, 1);
-      
-      audioBufferRef.current = audioBuffer;
-      elapsedTimeRef.current = 0;
-
-      playBuffer(audioBuffer);
-
-    } catch (error) {
-      console.error("Erro ao gerar áudio:", error);
-      alert("Falha ao gerar voz. Verifique a chave API ou tente novamente.");
-      setIsLoadingAudio(false);
-    } finally {
-      setIsLoadingAudio(false);
-    }
-  };
-
-  const handleStop = () => {
-    stopAudio(false); // Keeps buffer but resets time to 0
-  };
 
   const renderInteractiveComponent = (type: InteractiveComponentType, data?: any) => {
     switch (type) {
@@ -1193,87 +989,10 @@ const ReaderModal = ({ book, onClose }: { book: Book; onClose: () => void }) => 
                    <span className="text-flame-500 text-xs font-bold tracking-[0.2em] uppercase block">Capítulo {book.chapters.findIndex(c => c.id === activeChapterId) + 1}</span>
                    
                    <div className="flex items-center gap-2">
-                      
-                      {/* Voice Selection */}
-                      <div className="relative group mr-2">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none text-zinc-500">
-                          <Mic className="w-3 h-3" />
-                        </div>
-                        <select
-                          value={selectedVoice}
-                          onChange={(e) => {
-                            playClick();
-                            setSelectedVoice(e.target.value);
-                            stopAudio(true); // Reset audio so next click generates with new voice
-                          }}
-                          className="appearance-none bg-zinc-900 border border-zinc-700 text-zinc-300 text-[10px] uppercase tracking-wider py-1.5 pl-7 pr-6 rounded-full cursor-pointer hover:border-flame-500 focus:outline-none focus:border-flame-500 transition-colors"
-                        >
-                          {VOICES.map(v => (
-                            <option key={v} value={v}>{v}</option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-500">
-                          <ChevronRight className="h-3 w-3 rotate-90" />
-                        </div>
-                      </div>
-
-                      {/* TTS Controls */}
-                      <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-700 rounded-full p-1 pr-3">
-                          <button
-                          onClick={handleTogglePlay}
-                          disabled={isLoadingAudio}
-                          className={`flex items-center justify-center w-8 h-8 rounded-full transition-all ${
-                              isPlaying 
-                              ? 'text-flame-500 hover:bg-zinc-800' 
-                              : isPaused 
-                                  ? 'text-green-500 hover:bg-zinc-800'
-                                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                          }`}
-                          title={isPlaying ? "Pausar" : isPaused ? "Retomar" : "Ouvir Capítulo"}
-                          >
-                          {isLoadingAudio ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : isPlaying ? (
-                              <Pause className="w-4 h-4 fill-current" />
-                          ) : (
-                              <Play className="w-4 h-4 fill-current" />
-                          )}
-                          </button>
-                          
-                          {(isPlaying || isPaused) && (
-                              <button
-                                  onClick={handleStop}
-                                  className="flex items-center justify-center w-8 h-8 rounded-full text-zinc-500 hover:text-red-500 hover:bg-zinc-800 transition-all"
-                                  title="Parar"
-                              >
-                                  <StopCircle className="w-4 h-4" />
-                              </button>
-                          )}
-                          
-                          <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1 hidden sm:inline-block">
-                              {isLoadingAudio ? "Carregando..." : isPlaying ? "Ouvindo" : isPaused ? "Pausado" : "Ouvir"}
-                          </span>
-                      </div>
-
-                      {/* Speed Control (Simple) */}
-                      <div className="relative group ml-1 flex items-center gap-1 bg-zinc-900 border border-zinc-700 rounded-full px-2 py-1" title="Velocidade da Voz">
-                          <Gauge className="w-3 h-3 text-zinc-500" />
-                          <input 
-                              type="range" 
-                              min="0.5" 
-                              max="2.0" 
-                              step="0.1" 
-                              value={playbackSpeed}
-                              onChange={handleSpeedChange}
-                              className="w-16 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-flame-500"
-                          />
-                          <span className="text-[9px] w-6 text-right font-mono text-zinc-400">{playbackSpeed.toFixed(1)}x</span>
-                      </div>
-
                       {/* Reading Mode Toggle */}
                       <button
                         onClick={() => { playClick(); setIsReadingMode(true); }}
-                        className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-flame-500 hover:border-flame-500 transition-all ml-2"
+                        className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-flame-500 hover:border-flame-500 transition-all"
                         title="Modo Leitura (Foco)"
                       >
                          <BookOpen className="w-4 h-4" />
@@ -1290,13 +1009,13 @@ const ReaderModal = ({ book, onClose }: { book: Book; onClose: () => void }) => 
                               className="appearance-none bg-zinc-900/80 border border-zinc-700 text-zinc-300 text-xs uppercase tracking-wider py-2 pl-3 pr-8 rounded cursor-pointer hover:border-flame-500 focus:outline-none focus:border-flame-500 transition-colors"
                           >
                               {book.chapters.map((chapter, idx) => (
-                                  <option key={chapter.id} value={chapter.id}>
-                                      {idx + 1}. {chapter.title.replace(/^\d+\.\s/, '').substring(0, 30)}{chapter.title.length > 30 ? '...' : ''}
-                                  </option>
+                                <option key={chapter.id} value={chapter.id}>
+                                  {idx + 1}. {chapter.title.replace(/^\d+\.\s/, '').substring(0, 30)}{chapter.title.length > 30 ? '...' : ''}
+                                </option>
                               ))}
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-500">
-                              <ChevronRight className="h-3 w-3 rotate-90" />
+                            <ChevronRight className="h-3 w-3 rotate-90" />
                           </div>
                        </div>
                    </div>
