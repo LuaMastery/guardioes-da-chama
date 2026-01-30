@@ -682,9 +682,9 @@ const CreditsSection = () => (
                        <Sparkles className="w-8 h-8 text-blue-400" />
                    </div>
                    <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Google Gemini</h3>
-                   <p className="font-serif text-blue-400/80 text-sm uppercase tracking-widest mb-6">Engenharia & Voz</p>
+                   <p className="font-serif text-blue-400/80 text-sm uppercase tracking-widest mb-6">Engenharia & Código</p>
                    <p className="text-zinc-400 text-sm leading-relaxed">
-                       Pela arquitetura do código, geração neural de áudio e suporte estrutural na materialização da visão. A máquina que deu forma ao pensamento.
+                       Pela arquitetura do código, estruturação do conteúdo e suporte estrutural na materialização da visão. A máquina que organizou o conhecimento.
                    </p>
                </div>
             </div>
