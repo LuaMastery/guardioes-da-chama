@@ -1,238 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões da Chama - Em Manutenção</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guardiões da Chama</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        flame: {
-                            500: '#ff4500',
-                            600: '#cc3700',
-                            700: '#aa2f00',
-                        },
-                        swe: {
-                            500: '#fbbf24',
-                            600: '#f59e0b',
-                        },
-                        void: {
-                            900: '#0a0a0a',
-                            800: '#121212',
-                            700: '#1a1a1a',
-                            600: '#2a2a2a',
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['Georgia', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Cinzel', 'serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        glow: {
-                            '0%': { boxShadow: '0 0 20px rgba(255, 69, 0, 0.3)' },
-                            '100%': { boxShadow: '0 0 30px rgba(255, 69, 0, 0.6)' },
-                        }
-                    }
-                },
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              flame: {
+                500: '#ff4500',
+                600: '#cc3700',
+              },
+              void: {
+                900: '#0a0a0a',
+                800: '#121212',
+                700: '#1a1a1a',
+              }
             },
-        }
+            fontFamily: {
+              serif: ['Merriweather', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+              display: ['Cinzel', 'serif'],
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          },
+        },
+      }
     </script>
     <style>
-        body {
-            background-color: #0a0a0a;
-            color: #f5f5f5;
-            zoom: 70%;
-            -moz-transform: scale(0.7);
-            -moz-transform-origin: 0 0;
-            -webkit-transform: scale(0.7);
-            -webkit-transform-origin: 0 0;
-            -o-transform: scale(0.7);
-            -o-transform-origin: 0 0;
-            transform: scale(0.7);
-            transform-origin: 0 0;
-            width: 142.86%; /* 100% / 0.7 */
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ff4500;
-            border-radius: 6px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #cc3700;
-        }
-        
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #ff4500, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Glass effect */
-        .glass {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 69, 0, 0.2);
-        }
-        
-        /* Scroll to top button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #ff4500, #cc3700);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
-        }
-        
-        .scroll-to-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
-        }
-        
-        .scroll-to-top.hidden {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-        }
+      body {
+        background-color: #0a0a0a;
+        color: #f5f5f5;
+      }
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #ff4500;
+      }
     </style>
+
+<link rel="stylesheet" href="/index.css">
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/guardioes-da-chama/assets/index-CZBN_7RB.js"></script>
 </head>
-<body class="min-h-screen bg-void-900 flex items-center justify-center relative overflow-hidden">
-    <!-- Background Effects -->
-    <div class="absolute inset-0 bg-gradient-to-br from-void-900 via-void-800 to-void-900"></div>
-    <div class="absolute inset-0 opacity-20">
-        <div class="absolute top-20 left-20 w-64 h-64 bg-flame-500 rounded-full filter blur-3xl animate-float"></div>
-        <div class="absolute bottom-20 right-20 w-96 h-96 bg-swe-500 rounded-full filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
-    </div>
-    
-    <!-- Main Content -->
-    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <!-- Logo/Icon -->
-        <div class="mb-8">
-            <div class="w-24 h-24 bg-flame-500 rounded-full flex items-center justify-center mx-auto animate-glow">
-                <span class="text-white text-4xl">🔥</span>
-            </div>
-        </div>
-        
-        <!-- Title -->
-        <h1 class="text-4xl md:text-6xl font-display font-bold mb-6">
-            <span class="gradient-text">Guardiões da Chama</span>
-        </h1>
-        
-        <!-- Maintenance Message -->
-        <div class="glass rounded-lg p-10 mb-8">
-            <div class="mb-8">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-yellow-500 rounded-full mb-6">
-                    <span class="text-white text-3xl">🔧</span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-                    Site em Manutenção
-                </h2>
-            </div>
-            
-            <div class="text-left space-y-6 text-gray-300 text-lg leading-relaxed">
-                <p class="text-xl mb-6">
-                    Nosso site está passando por uma <span class="text-flame-500 font-bold">grande atualização</span> devido a um arquivo crítico que foi corrompido.
-                </p>
-                
-                <p class="text-lg mb-6">
-                    Estamos implementando atualizações <span class="text-swe-500 font-semibold">obrigatórias</span> para garantir:
-                </p>
-                
-                <ul class="list-disc list-inside space-y-4 ml-6 text-lg">
-                    <li class="mb-3"><span class="text-flame-500 font-semibold">Segurança</span> e privacidade para todos os usuários</li>
-                    <li class="mb-3"><span class="text-flame-500 font-semibold">Performance</span> otimizada e experiência melhorada</li>
-                    <li class="mb-3"><span class="text-flame-500 font-semibold">Estabilidade</span> do sistema e prevenção de corrupção</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Progress Indicator -->
-        <div class="glass rounded-lg p-8 mb-8">
-            <h3 class="text-xl font-bold text-white mb-6">Status da Atualização</h3>
-            <div class="w-full bg-void-700 rounded-full h-4 mb-6">
-                <div class="bg-gradient-to-r from-flame-500 to-swe-500 h-4 rounded-full animate-pulse-slow" style="width: 75%;"></div>
-            </div>
-            <p class="text-gray-300 text-lg leading-relaxed">
-                <span class="text-flame-500 font-bold text-xl">75% concluído</span> - Previsto para estar online em breve
-            </p>
-        </div>
-        
-        <!-- Contact Info -->
-        <div class="text-center space-y-4">
-            <p class="text-gray-400 text-lg leading-relaxed">
-                Agradecemos sua paciência e compreensão.
-            </p>
-            <p class="text-gray-400 text-lg leading-relaxed">
-                Para informações urgentes, entre em contato conosco.
-            </p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="absolute bottom-0 w-full py-6 text-center text-gray-400 border-t border-void-700">
-        <p>&copy; 2026 Guardiões da Chama. Todos os direitos reservados.</p>
-        <p class="text-sm mt-2">Manutenção em andamento - Volte em breve</p>
-    </footer>
-    
-    <!-- Scroll to Top Button -->
-    <div class="scroll-to-top hidden" id="scrollToTop">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m18 15-6-6-6 6"/>
-        </svg>
-    </div>
-
-    <script>
-        // Scroll to top functionality
-        const scrollToTopBtn = document.getElementById('scrollToTop');
-        
-        // Show/hide button based on scroll position
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.remove('hidden');
-            } else {
-                scrollToTopBtn.classList.add('hidden');
-            }
-        });
-        
-        // Scroll to top when clicked
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+  <body>
+    <div id="root"></div>
 </body>
 </html>
