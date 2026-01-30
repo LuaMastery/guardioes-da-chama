@@ -810,7 +810,7 @@ const BookCard: React.FC<{
       </div>
 
       <div className="relative z-10 mt-auto">
-        <p className="text-sm text-zinc-400 line-clamp-3 font-serif leading-relaxed mb-6 border-l border-zinc-700 pl-4 group-hover:border-flame-500 transition-colors">
+        <p className="text-sm text-zinc-400 line-clamp-3 font-serif leading-relaxed border-l border-zinc-700 pl-4 group-hover:border-flame-500 transition-colors">
           {book.description}
         </p>
       </div>
