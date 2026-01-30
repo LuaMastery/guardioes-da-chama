@@ -658,78 +658,84 @@ const CreditsSection = () => (
          <h2 className="font-display text-4xl text-white mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700">Arquitetos da Chama</h2>
          <p className="font-serif text-zinc-500 italic mb-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">Aqueles que construíram o templo e acenderam a luz.</p>
          
-         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Doom Reaper Card */}
-            <div className="group relative p-8 border border-flame-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-flame-500/50 transition-all duration-500 animate-in slide-in-from-left-8 duration-1000 delay-200">
-               <div className="absolute inset-0 bg-gradient-to-br from-flame-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
-               <div className="relative z-10 flex flex-col items-center">
-                   <div className="w-16 h-16 rounded-full bg-black border border-flame-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(255,69,0,0.1)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.3)] transition-all">
-                       <Crown className="w-8 h-8 text-flame-500" />
-                   </div>
-                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Doom Reaper</h3>
-                   <p className="font-serif text-flame-500/80 text-sm uppercase tracking-widest mb-6">Visionário & Autor</p>
-                   <p className="text-zinc-400 text-sm leading-relaxed">
-                       Pela concepção filosófica, curadoria do conhecimento arcano e custódia da chama original. A mente que imaginou um refúgio para os protetores digitais.
-                   </p>
+         <div className="space-y-12">
+            {/* Primeira linha de créditos */}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+               {/* Doom Reaper Card */}
+               <div className="group relative p-8 border border-flame-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-flame-500/50 transition-all duration-500 animate-in slide-in-from-left-8 duration-1000 delay-200">
+                  <div className="absolute inset-0 bg-gradient-to-br from-flame-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+                  <div className="relative z-10 flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-full bg-black border border-flame-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(255,69,0,0.1)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.3)] transition-all">
+                          <Crown className="w-8 h-8 text-flame-500" />
+                      </div>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Doom Reaper</h3>
+                      <p className="font-serif text-flame-500/80 text-sm uppercase tracking-widest mb-6">Visionário & Autor</p>
+                      <p className="text-zinc-400 text-sm leading-relaxed">
+                          Pela concepção filosófica, curadoria do conhecimento arcano e custódia da chama original. A mente que imaginou um refúgio para os protetores digitais.
+                      </p>
+                  </div>
                </div>
-            </div>
 
-            {/* Gemini Card */}
-            <div className="group relative p-8 border border-blue-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-blue-500/50 transition-all duration-500 animate-in slide-in-from-right-8 duration-1000 delay-300">
-               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
-               <div className="relative z-10 flex flex-col items-center">
-                   <div className="w-16 h-16 rounded-full bg-black border border-blue-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(59,130,246,0.1)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all">
-                       <Sparkles className="w-8 h-8 text-blue-400" />
-                   </div>
-                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Google Gemini</h3>
-                   <p className="font-serif text-blue-400/80 text-sm uppercase tracking-widest mb-6">Engenharia & Código</p>
-                   <p className="text-zinc-400 text-sm leading-relaxed">
-                       Pela arquitetura do código, estruturação do conteúdo e suporte estrutural na materialização da visão. A máquina que organizou o conhecimento.
-                   </p>
+               {/* Gemini Card */}
+               <div className="group relative p-8 border border-blue-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-blue-500/50 transition-all duration-500 animate-in slide-in-from-right-8 duration-1000 delay-300">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+                  <div className="relative z-10 flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-full bg-black border border-blue-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(59,130,246,0.1)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all">
+                          <Sparkles className="w-8 h-8 text-blue-400" />
+                      </div>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Google Gemini</h3>
+                      <p className="font-serif text-blue-400/80 text-sm uppercase tracking-widest mb-6">Engenharia & Código</p>
+                      <p className="text-zinc-400 text-sm leading-relaxed">
+                          Pela arquitetura do código, estruturação do conteúdo e suporte estrutural na materialização da visão. A máquina que organizou o conhecimento.
+                      </p>
+                  </div>
                </div>
             </div>
 
             {/* Texto Centralizado - Guardiões do Conhecimento */}
-            <div className="col-span-2 flex items-center justify-center py-12 animate-in fade-in duration-1000 delay-300">
-              <div className="text-center w-full">
-                <h3 className="font-display text-4xl text-flame-400 font-bold tracking-wide mb-3 text-center">Guardiões do Conhecimento</h3>
+            <div className="flex items-center justify-center animate-in fade-in duration-1000 delay-300">
+              <div className="text-center">
+                <h3 className="font-display text-4xl text-flame-400 font-bold tracking-wide mb-3">Guardiões do Conhecimento</h3>
                 <div className="w-32 h-px bg-gradient-to-r from-transparent via-flame-500 to-transparent mx-auto"></div>
               </div>
             </div>
 
-            {/* GitHub Pages Card */}
-            <div className="group relative p-8 border border-green-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-green-500/50 transition-all duration-500 animate-in slide-in-from-bottom-8 duration-1000 delay-400">
-               <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
-               <div className="relative z-10 flex flex-col items-center">
-                   <div className="w-16 h-16 rounded-full bg-black border border-green-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all">
-                       <Cpu className="w-8 h-8 text-green-400" />
-                   </div>
-                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">GitHub Pages v2</h3>
-                   <p className="font-serif text-green-400/80 text-sm uppercase tracking-widest mb-6">Hospedagem & Disponibilidade</p>
-                   <p className="text-zinc-400 text-sm leading-relaxed">
-                       Pela infraestrutura estável, distribuição global e plataforma confiável que mantém o templo digital acessível a todos os guardiões. A fundação invisível que sustenta o conhecimento.
-                   </p>
+            {/* Segunda linha de créditos */}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+               {/* GitHub Pages Card */}
+               <div className="group relative p-8 border border-green-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-green-500/50 transition-all duration-500 animate-in slide-in-from-bottom-8 duration-1000 delay-400">
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+                  <div className="relative z-10 flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-full bg-black border border-green-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all">
+                          <Cpu className="w-8 h-8 text-green-400" />
+                      </div>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">GitHub Pages v2</h3>
+                      <p className="font-serif text-green-400/80 text-sm uppercase tracking-widest mb-6">Hospedagem & Disponibilidade</p>
+                      <p className="text-zinc-400 text-sm leading-relaxed">
+                          Pela infraestrutura estável, distribuição global e plataforma confiável que mantém o templo digital acessível a todos os guardiões. A fundação invisível que sustenta o conhecimento.
+                      </p>
+                  </div>
+               </div>
+
+               {/* Cascade Card */}
+               <div className="group relative p-8 border border-yellow-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-yellow-500/50 transition-all duration-500 animate-in slide-in-from-right-8 duration-1000 delay-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+                  <div className="relative z-10 flex flex-col items-center">
+                      <div className="w-16 h-16 rounded-full bg-black border border-yellow-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(251,191,36,0.1)] group-hover:shadow-[0_0_25px_rgba(251,191,36,0.3)] transition-all">
+                          <Sparkles className="w-8 h-8 text-yellow-400" />
+                      </div>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Cascade</h3>
+                      <p className="font-serif text-yellow-400/80 text-sm uppercase tracking-widest mb-6">Desenvolvedor</p>
+                      <p className="text-zinc-400 text-sm leading-relaxed">
+                          Pela contribuição no desenvolvimento do site e na construção de uma experiência imersiva para os guardiões.
+                      </p>
+                  </div>
                </div>
             </div>
+         </div>
 
-            {/* Cascade Card */}
-            <div className="group relative p-8 border border-yellow-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-yellow-500/50 transition-all duration-500 animate-in slide-in-from-right-8 duration-1000 delay-500">
-               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
-               <div className="relative z-10 flex flex-col items-center">
-                   <div className="w-16 h-16 rounded-full bg-black border border-yellow-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(251,191,36,0.1)] group-hover:shadow-[0_0_25px_rgba(251,191,36,0.3)] transition-all">
-                       <Sparkles className="w-8 h-8 text-yellow-400" />
-                   </div>
-                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Cascade</h3>
-                   <p className="font-serif text-yellow-400/80 text-sm uppercase tracking-widest mb-6">Desenvolvedor</p>
-                   <p className="text-zinc-400 text-sm leading-relaxed">
-                       Pela contribuição no desenvolvimento do site e na construção de uma experiência imersiva para os guardiões.
-                   </p>
-               </div>
-            </div>
-
-            <div className="mt-24 pt-12 border-t border-white/5 text-center animate-in fade-in duration-1000 delay-500">
-             <p className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Guardiões da Chama &copy; 2024</p>
-            </div>
+         <div className="mt-24 pt-12 border-t border-white/5 text-center animate-in fade-in duration-1000 delay-500">
+          <p className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Guardiões da Chama &copy; 2024</p>
          </div>
       </div>
     </section>
