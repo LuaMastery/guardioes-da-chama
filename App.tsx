@@ -690,10 +690,10 @@ const CreditsSection = () => (
             </div>
 
             {/* Texto Centralizado - Guardiões do Conhecimento */}
-            <div className="col-span-2 flex items-center justify-center py-8 animate-in fade-in duration-1000 delay-300">
-              <div className="text-center">
-                <h3 className="font-display text-3xl text-flame-400 font-bold tracking-wide mb-2">Guardiões do Conhecimento</h3>
-                <div className="w-24 h-px bg-gradient-to-r from-transparent via-flame-500 to-transparent mx-auto"></div>
+            <div className="col-span-2 flex items-center justify-center py-12 animate-in fade-in duration-1000 delay-300">
+              <div className="text-center w-full">
+                <h3 className="font-display text-4xl text-flame-400 font-bold tracking-wide mb-3 text-center">Guardiões do Conhecimento</h3>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-flame-500 to-transparent mx-auto"></div>
               </div>
             </div>
 
