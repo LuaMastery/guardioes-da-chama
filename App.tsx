@@ -696,7 +696,7 @@ const CreditsSection = () => (
                    <div className="w-16 h-16 rounded-full bg-black border border-green-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all">
                        <Cpu className="w-8 h-8 text-green-400" />
                    </div>
-                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">GitHub Pages</h3>
+                   <h3 className="font-display text-2xl text-white mb-2 tracking-wide">GitHub Pages v2</h3>
                    <p className="font-serif text-green-400/80 text-sm uppercase tracking-widest mb-6">Hospedagem & Disponibilidade</p>
                    <p className="text-zinc-400 text-sm leading-relaxed">
                        Pela infraestrutura estável, distribuição global e plataforma confiável que mantém o templo digital acessível a todos os guardiões. A fundação invisível que sustenta o conhecimento.
