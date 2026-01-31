@@ -228,6 +228,48 @@ const useSound = () => {
   return { playHover, playClick };
 };
 
+// --- Botão com Efeitos Sonoros Integrados ---
+const SoundButton = ({ 
+  children, 
+  onClick, 
+  className, 
+  disabled = false,
+  ...props 
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
+  [key: string]: any;
+}) => {
+  const { playHover, playClick } = useSound();
+
+  const handleClick = () => {
+    if (!disabled) {
+      playClick();
+      if (onClick) onClick();
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (!disabled) {
+      playHover();
+    }
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      className={className}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
 // --- Notifications System ---
 
 interface NotificationUpdate {
@@ -672,20 +714,18 @@ const CrisisDecision = () => {
             Um hacker alega ter o banco de dados de IPs dos seus usuários e ameaça vazar em 1 hora se não receber admin. O que você faz primeiro?
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button 
-              onMouseEnter={playHover}
-              onClick={() => { playClick(); setOutcome("bad"); }}
+            <SoundButton 
+              onClick={() => setOutcome("bad")}
               className="p-4 bg-black border border-zinc-700 hover:bg-zinc-800 text-zinc-300 text-sm text-left transition-colors"
             >
               A. Tentar negociar tempo com o hacker no chat privado.
-            </button>
-            <button 
-              onMouseEnter={playHover}
-              onClick={() => { playClick(); setOutcome("good"); }}
+            </SoundButton>
+            <SoundButton 
+              onClick={() => setOutcome("good")}
               className="p-4 bg-black border border-zinc-700 hover:bg-zinc-800 text-zinc-300 text-sm text-left transition-colors"
             >
               B. Cortar comunicação, derrubar o servidor temporariamente e notificar a host.
-            </button>
+            </SoundButton>
           </div>
         </>
       ) : (
@@ -695,13 +735,12 @@ const CrisisDecision = () => {
           ) : (
              <p className="text-green-400">CORRETO. Em vazamento, sua prioridade é estancar a sangria. Derrubar o serviço protege quem ainda não foi afetado e tira a alavanca de pressão do atacante.</p>
           )}
-          <button 
-            onMouseEnter={playHover}
-            onClick={() => { playClick(); setOutcome(null); }} 
+          <SoundButton 
+            onClick={() => setOutcome(null)} 
             className="mt-4 text-zinc-500 text-xs underline"
           >
             Tentar novamente
-          </button>
+          </SoundButton>
         </div>
       )}
     </div>
@@ -732,44 +771,38 @@ const Header = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philo
         </div>
         
         <nav className="hidden md:flex items-center gap-6">
-          <button 
-            onMouseEnter={playHover}
-            onClick={() => { playClick(); onNavigate('philosophy'); }} 
+          <SoundButton 
+            onClick={() => onNavigate('philosophy')} 
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Filosofia
-          </button>
-          <button 
-            onMouseEnter={playHover}
-            onClick={() => { playClick(); onNavigate('library'); }} 
+          </SoundButton>
+          <SoundButton 
+            onClick={() => onNavigate('library')} 
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Biblioteca
-          </button>
-          <button 
-            onMouseEnter={playHover}
-            onClick={() => { playClick(); onNavigate('about'); }} 
+          </SoundButton>
+          <SoundButton 
+            onClick={() => onNavigate('about')} 
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Sobre Nós
-          </button>
-          <button 
-            onMouseEnter={playHover}
-            onClick={() => { 
-              playClick(); 
+          </SoundButton>
+          <SoundButton 
+            onClick={() => {
               alert('🚧 Sistema de Doações em Desenvolvimento\n\nEstamos trabalhando para implementar um sistema de doações que permitirá apoiar o crescimento do Guardiões da Chama. Em breve você poderá contribuir para manter o site gratuito e ajudar-nos a criar mais conteúdo para a comunidade.\n\nAgradecemos seu interesse e apoio!');
             }} 
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Doações
-          </button>
-           <button 
-            onMouseEnter={playHover}
-            onClick={() => { playClick(); onNavigate('credits'); }} 
+          </SoundButton>
+          <SoundButton 
+            onClick={() => onNavigate('credits')} 
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Créditos
-          </button>
+          </SoundButton>
           
           <div className="w-px h-6 bg-white/10 mx-2"></div>
           
@@ -804,14 +837,13 @@ const Hero = ({ onEnter }: { onEnter: () => void }) => {
           <br/><span className="text-sm text-zinc-600 mt-4 block italic">Você não escolheu ser um guardião. Nasceu assim.</span>
         </p>
         
-        <button 
-          onMouseEnter={playHover}
-          onClick={() => { playClick(); onEnter(); }}
+        <SoundButton 
+          onClick={() => onEnter()}
           className="group relative px-8 py-4 bg-transparent border border-zinc-700 text-white font-display font-bold tracking-widest overflow-hidden hover:border-flame-500 transition-colors duration-300"
         >
           <span className="relative z-10 group-hover:text-flame-500 transition-colors">ABRIR BIBLIOTECA</span>
           <div className="absolute inset-0 bg-white/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        </button>
+        </SoundButton>
       </div>
     </section>
   );
