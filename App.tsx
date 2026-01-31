@@ -412,7 +412,10 @@ interface NotificationUpdate {
   read: boolean;
 }
 
-const RECENT_UPDATES: NotificationUpdate[] = [];
+const RECENT_UPDATES: NotificationUpdate[] = [
+  { id: '1', title: 'Sistema de Notificações Ativado', description: 'Receba alertas em tempo real sobre novas atualizações do Guardiões da Chama.', date: 'Agora', read: false },
+  { id: '2', title: 'Monitor de Atualizações Disponível', description: 'Baixe nosso aplicativo para receber notificações diretamente no seu computador.', date: 'Agora', read: false },
+];
 
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
