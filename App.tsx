@@ -1236,6 +1236,42 @@ const AboutSection = () => (
           </div>
         </div>
 
+        {/* Segurança e Confiança */}
+        <div className="bg-gradient-to-r from-green-500/10 to-zinc-900/30 border border-green-500/20 rounded-xl p-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+          <h3 className="font-display text-2xl text-green-500 mb-4">🔒 Segurança e Confiança</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            <strong className="text-green-400">Nossa prioridade é sua segurança.</strong>
+          </p>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            O Guardiões da Chama utiliza certificado SSL/TLS válido, garantindo que todas as suas informações 
+            estão criptografadas e protegidas. Nosso site é verificado e seguro para navegação.
+          </p>
+          <div className="bg-zinc-900/50 rounded-lg p-4 mb-4">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="text-green-400 font-bold">Conexão Segura (HTTPS)</span>
+            </div>
+            <p className="text-sm text-zinc-400">
+              Certificado SSL/TLS válido • Criptografia de ponta a ponta • Proteção de dados
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-bold rounded-full">
+              🔐 Site Seguro
+            </span>
+            <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-bold rounded-full">
+              🛡️ Protegido
+            </span>
+            <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-bold rounded-full">
+              ✅ Verificado
+            </span>
+          </div>
+        </div>
+
         {/* Totalmente Gratuito */}
         <div className="bg-gradient-to-r from-flame-500/10 to-zinc-900/30 border border-flame-500/20 rounded-xl p-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
           <h3 className="font-display text-2xl text-flame-500 mb-4">Totalmente Gratuito</h3>
