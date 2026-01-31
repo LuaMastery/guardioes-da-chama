@@ -808,6 +808,13 @@ const BookCard: React.FC<{
         <h3 className="font-display text-2xl md:text-3xl text-white font-bold mb-2 group-hover:text-flame-500 transition-colors leading-tight">
           {book.title}
         </h3>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-[10px] uppercase tracking-wider px-2 py-1 bg-zinc-800 border border-zinc-700 text-zinc-400 rounded font-mono">
+            ID: {book.id}
+          </span>
+          <span className="text-xs text-zinc-500">•</span>
+          <span className="text-xs text-zinc-400">{book.platform}</span>
+        </div>
         <p className="font-serif text-sm text-zinc-400 italic mb-4">{book.subtitle}</p>
         <p className="text-xs text-zinc-500 leading-relaxed mb-4 line-clamp-3">
           {book.description}
