@@ -544,7 +544,7 @@ const CrisisDecision = () => {
 
 // --- Main Components ---
 
-const Header = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philosophy' | 'credits') => void }) => {
+const Header = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philosophy' | 'about' | 'credits') => void }) => {
   const { playHover, playClick } = useSound();
   
   return (
@@ -578,6 +578,13 @@ const Header = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philo
             className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
           >
             Biblioteca
+          </button>
+          <button 
+            onMouseEnter={playHover}
+            onClick={() => { playClick(); onNavigate('about'); }} 
+            className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
+          >
+            Sobre Nós
           </button>
            <button 
             onMouseEnter={playHover}
@@ -1167,11 +1174,135 @@ const ReaderModal = ({ book, onClose }: { book: Book; onClose: () => void }) => 
   );
 }
 
+const AboutSection = () => (
+  <section className="py-24 px-6 min-h-screen bg-void-900">
+    <div className="max-w-4xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="font-display text-5xl text-white mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700">Sobre Nós</h2>
+        <p className="font-serif text-xl text-zinc-400 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
+          Conheça a história e missão dos Guardiões da Chama
+        </p>
+      </div>
+
+      <div className="space-y-12">
+        {/* O que somos */}
+        <div className="bg-zinc-900/30 border border-white/5 rounded-xl p-8 animate-in fade-in slide-in-from-left-8 duration-1000 delay-200">
+          <h3 className="font-display text-2xl text-flame-500 mb-4">O Que Somos</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            Guardiões da Chama é uma comunidade dedicada a ensinar pessoas a administrar e moderar comunidades de jogos online. 
+            Nascemos da necessidade de criar espaços digitais mais seguros e acolhedores para todos os jogadores.
+          </p>
+          <p className="text-zinc-300 leading-relaxed">
+            Acreditamos que todo jogador merece uma experiência positiva, livre de toxicidade e conflitos desnecessários. 
+            Por isso, capacitamos guardiões com as ferramentas e conhecimentos necessários para proteger suas comunidades.
+          </p>
+        </div>
+
+        {/* Nossa Missão */}
+        <div className="bg-zinc-900/30 border border-white/5 rounded-xl p-8 animate-in fade-in slide-in-from-right-8 duration-1000 delay-300">
+          <h3 className="font-display text-2xl text-flame-500 mb-4">Nossa Missão</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            Nossa missão é transformar o ambiente dos jogos online, um guardião de cada vez. 
+            Oferecemos conhecimento prático e acessível para que qualquer pessoa possa se tornar um moderador eficaz.
+          </p>
+          <p className="text-zinc-300 leading-relaxed">
+            Ensinamos desde conceitos básicos de moderação até técnicas avançadas de gestão de conflitos, 
+            sempre com foco em criar comunidades saudáveis e sustentáveis.
+          </p>
+        </div>
+
+        {/* Como Funciona */}
+        <div className="bg-zinc-900/30 border border-white/5 rounded-xl p-8 animate-in fade-in slide-in-from-left-8 duration-1000 delay-400">
+          <h3 className="font-display text-2xl text-flame-500 mb-4">Como Funciona</h3>
+          <div className="space-y-4 text-zinc-300">
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-flame-500 rounded-full flex-shrink-0 mt-1"></div>
+              <div>
+                <strong>Biblioteca Completa:</strong> Acesso a livros e guias sobre moderação, administração e gestão de comunidades.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-flame-500 rounded-full flex-shrink-0 mt-1"></div>
+              <div>
+                <strong>Conteúdo Prático:</strong> Simuladores e ferramentas interativas para treinar suas habilidades.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-flame-500 rounded-full flex-shrink-0 mt-1"></div>
+              <div>
+                <strong>Comunidade Ativa:</strong> Conecte-se com outros guardiões e compartilhe experiências.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Totalmente Gratuito */}
+        <div className="bg-gradient-to-r from-flame-500/10 to-zinc-900/30 border border-flame-500/20 rounded-xl p-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+          <h3 className="font-display text-2xl text-flame-500 mb-4">Totalmente Gratuito</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            <strong className="text-flame-400">Todo o nosso conteúdo é 100% gratuito.</strong>
+          </p>
+          <p className="text-zinc-300 leading-relaxed">
+            Acreditamos que o conhecimento deve ser acessível a todos. Por isso, todo o site - livros, guias, 
+            simuladores e ferramentas - é completamente gratuito e aberto ao público. Sem taxas, sem assinaturas, 
+            sem barreiras. Apenas conhecimento compartilhado para construir comunidades melhores.
+          </p>
+          <div className="mt-6 text-center">
+            <span className="inline-block px-6 py-3 bg-flame-500 text-white font-bold rounded-lg">
+              📚 Acesso Livre e Gratuito
+            </span>
+          </div>
+        </div>
+
+        {/* Nossa História */}
+        <div className="bg-zinc-900/30 border border-white/5 rounded-xl p-8 animate-in fade-in slide-in-from-right-8 duration-1000 delay-600">
+          <h3 className="font-display text-2xl text-flame-500 mb-4">Nossa História</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            Guardiões da Chama surgiu da observação de um problema crescente nos jogos online: a falta de moderação eficaz 
+            e o impacto negativo que isso causa na experiência dos jogadores.
+          </p>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            Começamos como um pequeno grupo de moderadores experientes compartilhando conhecimentos em fóruns e servidores Discord. 
+            Com o tempo, percebemos a necessidade de organizar esse conhecimento em um formato mais acessível e completo.
+          </p>
+          <p className="text-zinc-300 leading-relaxed">
+            Hoje, somos uma comunidade crescente de guardiões dedicados a fazer dos jogos online um lugar melhor para todos. 
+            Cada livro, cada guia, cada ferramenta foi criada com base em experiências reais e nas melhores práticas de moderação.
+          </p>
+        </div>
+
+        {/* Junte-se a Nós */}
+        <div className="text-center py-12 animate-in fade-in duration-1000 delay-700">
+          <h3 className="font-display text-3xl text-white mb-6">Junte-se à Comunidade</h3>
+          <p className="text-zinc-400 mb-8 max-w-2xl mx-auto">
+            Seja você um jogador que quer fazer a diferença, um moderador buscando aprimorar suas habilidades, 
+            ou um administrador de servidor em busca de melhores práticas - você tem um lugar aqui.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="px-8 py-3 bg-flame-600 hover:bg-flame-500 text-white font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105"
+            >
+              Começar Agora
+            </button>
+            <button 
+              onClick={() => window.location.href = '#library'}
+              className="px-8 py-3 border border-flame-500 text-flame-500 hover:bg-flame-500 hover:text-white font-bold uppercase tracking-widest rounded transition-all duration-300"
+            >
+              Explorar Biblioteca
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const App = () => {
-  const [view, setView] = useState<'home' | 'library' | 'philosophy' | 'credits'>('home');
+  const [view, setView] = useState<'home' | 'library' | 'philosophy' | 'about' | 'credits'>('home');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const handleNavigate = (page: 'home' | 'library' | 'philosophy' | 'credits') => {
+  const handleNavigate = (page: 'home' | 'library' | 'philosophy' | 'about' | 'credits') => {
     setView(page);
     window.scrollTo(0, 0);
   };
@@ -1191,6 +1322,10 @@ const App = () => {
 
         {view === 'library' && (
           <Library onOpenBook={setSelectedBook} />
+        )}
+
+        {view === 'about' && (
+          <AboutSection />
         )}
 
         {view === 'credits' && (
