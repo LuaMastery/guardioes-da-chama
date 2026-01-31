@@ -946,6 +946,62 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
             />
           ))}
         </div>
+
+        {/* Mensagem para nível Mestre sem livros */}
+        {filteredBooks.length === 0 && filterLevel === 'Mestre' && (
+          <div className="text-center py-16">
+            <div className="max-w-2xl mx-auto">
+              <div className="w-20 h-20 bg-flame-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Crown className="w-10 h-10 text-flame-500" />
+              </div>
+              <h3 className="font-display text-2xl text-white mb-4">Conteúdo Mestre em Desenvolvimento</h3>
+              <p className="text-zinc-400 leading-relaxed mb-6">
+                Ainda não há livros disponíveis para o nível Mestre. Estamos trabalhando duro para trazer conteúdo avançado 
+                e especializado para os guardiões mais experientes.
+              </p>
+              <p className="text-zinc-500 text-sm mb-8">
+                Em breve você encontrará livros sobre técnicas avançadas de moderação, gestão de comunidades em larga escala, 
+                estratégias de liderança digital e muito mais.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button 
+                  onClick={() => { playClick(); setFilterLevel('Avançado'); }}
+                  className="px-6 py-3 bg-flame-600 hover:bg-flame-500 text-white font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105"
+                >
+                  Explorar Nível Avançado
+                </button>
+                <button 
+                  onClick={() => { playClick(); setFilterLevel('all'); }}
+                  className="px-6 py-3 border border-zinc-600 text-zinc-400 hover:text-white hover:border-zinc-500 font-bold uppercase tracking-widest rounded transition-all duration-300"
+                >
+                  Ver Todos os Livros
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Mensagem geral para outros filtros sem resultados */}
+        {filteredBooks.length === 0 && filterLevel !== 'Mestre' && (
+          <div className="text-center py-16">
+            <div className="max-w-2xl mx-auto">
+              <div className="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <BookOpen className="w-10 h-10 text-zinc-500" />
+              </div>
+              <h3 className="font-display text-2xl text-white mb-4">Nenhum Livro Encontrado</h3>
+              <p className="text-zinc-400 leading-relaxed mb-6">
+                Não encontramos livros que correspondam aos filtros selecionados. 
+                Tente ajustar seus filtros ou explore nossa coleção completa.
+              </p>
+              <button 
+                onClick={() => { playClick(); setFilterLevel('all'); setFilterPlatform('all'); setSearchQuery(''); }}
+                className="px-6 py-3 bg-flame-600 hover:bg-flame-500 text-white font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105"
+              >
+                Limpar Filtros
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       {tooltip && <LibraryTooltip book={tooltip.book} x={tooltip.x} y={tooltip.y} />}
     </section>
