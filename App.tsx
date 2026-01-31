@@ -1228,7 +1228,7 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
                   Explorar Nível Avançado
                 </button>
                 <button 
-                  onClick={() => { playClick(); window.location.href = '#library'; }}
+                  onClick={() => { playClick(); setFilterLevel('all'); }}
                   className="px-6 py-3 border border-zinc-600 text-zinc-400 hover:text-white hover:border-zinc-500 font-bold uppercase tracking-widest rounded transition-all duration-300"
                 >
                   Explorar Biblioteca
