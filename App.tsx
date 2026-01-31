@@ -110,6 +110,7 @@ const ActiveUsersCounter = () => {
 const useLikeSystem = () => {
   const [likes, setLikes] = useState<Record<string, number>>({});
   const [userLikes, setUserLikes] = useState<Set<string>>(new Set());
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Carregar likes do localStorage ao montar
   useEffect(() => {
@@ -139,45 +140,66 @@ const useLikeSystem = () => {
         setUserLikes(new Set());
       }
     }
+    
+    setIsLoaded(true);
   }, []);
 
-  // Salvar likes no localStorage quando mudar
+  // Salvar likes no localStorage quando mudar (após carregar)
   useEffect(() => {
-    localStorage.setItem('bookLikes', JSON.stringify(likes));
-  }, [likes]);
+    if (isLoaded) {
+      console.log('Saving likes to localStorage:', likes);
+      localStorage.setItem('bookLikes', JSON.stringify(likes));
+    }
+  }, [likes, isLoaded]);
 
-  // Salvar likes do usuário no localStorage quando mudar
+  // Salvar likes do usuário no localStorage quando mudar (após carregar)
   useEffect(() => {
-    localStorage.setItem('userLikedBooks', JSON.stringify(Array.from(userLikes)));
-  }, [userLikes]);
+    if (isLoaded) {
+      console.log('Saving user likes to localStorage:', Array.from(userLikes));
+      localStorage.setItem('userLikedBooks', JSON.stringify(Array.from(userLikes)));
+    }
+  }, [userLikes, isLoaded]);
 
   const handleLike = (bookId: string) => {
-    setLikes(prev => ({
-      ...prev,
-      [bookId]: (prev[bookId] || 0) + 1
-    }));
+    console.log('handleLike called for:', bookId);
+    setLikes(prev => {
+      const newLikes = {
+        ...prev,
+        [bookId]: (prev[bookId] || 0) + 1
+      };
+      console.log('New likes state:', newLikes);
+      return newLikes;
+    });
     
     setUserLikes(prev => {
       const newSet = new Set(prev);
       newSet.add(bookId);
+      console.log('New userLikes state:', Array.from(newSet));
       return newSet;
     });
   };
 
   const handleUnlike = (bookId: string) => {
-    setLikes(prev => ({
-      ...prev,
-      [bookId]: Math.max(0, (prev[bookId] || 1) - 1)
-    }));
+    console.log('handleUnlike called for:', bookId);
+    setLikes(prev => {
+      const newLikes = {
+        ...prev,
+        [bookId]: Math.max(0, (prev[bookId] || 1) - 1)
+      };
+      console.log('New likes state after unlike:', newLikes);
+      return newLikes;
+    });
     
     setUserLikes(prev => {
       const newSet = new Set(prev);
       newSet.delete(bookId);
+      console.log('New userLikes state after unlike:', Array.from(newSet));
       return newSet;
     });
   };
 
   const toggleLike = (bookId: string) => {
+    console.log('toggleLike called for:', bookId, 'isLiked:', userLikes.has(bookId));
     if (userLikes.has(bookId)) {
       handleUnlike(bookId);
     } else {
@@ -1131,6 +1153,11 @@ const BookCard: React.FC<{
 }> = ({ book, onClick, onMouseMove, onMouseLeave, onLike, isLiked, likeCount }) => {
   const { playHover, playClick } = useSound();
   
+  // Debug para verificar props
+  useEffect(() => {
+    console.log(`BookCard ${book.id}:`, { isLiked, likeCount });
+  }, [book.id, isLiked, likeCount]);
+  
   return (
     <div 
       onMouseEnter={playHover}
@@ -1148,6 +1175,7 @@ const BookCard: React.FC<{
             <button
               onClick={(e) => {
                 e.stopPropagation();
+                console.log(`Like button clicked for book ${book.id}`);
                 playClick();
                 onLike(book.id);
               }}
