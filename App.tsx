@@ -1222,12 +1222,14 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 
+                  onMouseEnter={playHover}
                   onClick={() => { playClick(); setFilterLevel('Avançado'); }}
                   className="px-6 py-3 bg-flame-600 hover:bg-flame-500 text-white font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105"
                 >
                   Explorar Nível Avançado
                 </button>
                 <button 
+                  onMouseEnter={playHover}
                   onClick={() => { playClick(); setFilterLevel('all'); }}
                   className="px-6 py-3 border border-zinc-600 text-zinc-400 hover:text-white hover:border-zinc-500 font-bold uppercase tracking-widest rounded transition-all duration-300"
                 >
