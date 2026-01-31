@@ -674,14 +674,14 @@ const CreditsSection = () => (
          <div className="space-y-12">
             {/* Primeira linha de créditos */}
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-               {/* Doom Reaper Card */}
+               {/* Rhuan De Cillo Silva Card */}
                <div className="group relative p-8 border border-flame-500/20 bg-zinc-900/30 rounded-xl hover:bg-zinc-900/80 hover:border-flame-500/50 transition-all duration-500 animate-in slide-in-from-left-8 duration-1000 delay-200">
                   <div className="absolute inset-0 bg-gradient-to-br from-flame-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
                   <div className="relative z-10 flex flex-col items-center">
                       <div className="w-16 h-16 rounded-full bg-black border border-flame-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(255,69,0,0.1)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.3)] transition-all">
                           <Crown className="w-8 h-8 text-flame-500" />
                       </div>
-                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Doom Reaper</h3>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Rhuan De Cillo Silva</h3>
                       <p className="font-serif text-flame-500/80 text-sm uppercase tracking-widest mb-6">Visionário & Autor</p>
                       <p className="text-zinc-400 text-sm leading-relaxed">
                           Pela concepção filosófica, curadoria do conhecimento arcano e custódia da chama original. A mente que imaginou um refúgio para os protetores digitais.
