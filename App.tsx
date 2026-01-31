@@ -586,6 +586,16 @@ const Header = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philo
           >
             Sobre Nós
           </button>
+          <button 
+            onMouseEnter={playHover}
+            onClick={() => { 
+              playClick(); 
+              alert('🚧 Sistema de Doações em Desenvolvimento\n\nEstamos trabalhando para implementar um sistema de doações que permitirá apoiar o crescimento do Guardiões da Chama. Em breve você poderá contribuir para manter o site gratuito e ajudar-nos a criar mais conteúdo para a comunidade.\n\nAgradecemos seu interesse e apoio!');
+            }} 
+            className="text-zinc-400 hover:text-white transition-colors text-sm uppercase tracking-widest font-semibold"
+          >
+            Doações
+          </button>
            <button 
             onMouseEnter={playHover}
             onClick={() => { playClick(); onNavigate('credits'); }} 
