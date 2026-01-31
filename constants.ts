@@ -14,10 +14,10 @@ export const LIBRARY_BOOKS: Book[] = [
         id: 'c1-1',
         title: '1. O Peso da Diferença',
         content: `
-          <p class="first-letter:text-5xl first-letter:font-display first-letter:text-flame-500 first-letter:mr-3 first-letter:float-left">
+          <p class="mb-6 first-letter:text-5xl first-letter:font-display first-letter:text-flame-500 first-letter:mr-3 first-letter:float-left">
             Você não escolheu se sentir assim. A sensação de desconforto quando vê injustiça, o aperto no peito quando lê palavras de ódio em um chat de jogo, a solidão de parecer ser o único a se importar. Isso não é um defeito de fabricação.
           </p>
-          <p class="my-6">
+          <p class="mb-6">
             O mundo tenta nos dizer que a insensibilidade é força. "É só um jogo", eles dizem. "Não leve a sério", repetem. Mas para você, a internet não é um lugar etéreo e falso. É onde as mentes se encontram. E onde mentes se encontram, há realidade.
           </p>
           <h3 class="text-2xl font-display text-white mt-8 mb-4">A chama que você carrega</h3>
@@ -45,8 +45,8 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '3. A Solidão do Poder', 
         content: `
           <p class="mb-6">Assim que você aceita o distintivo (ou o cargo de Admin), algo muda. Seus amigos de jogo agora hesitam antes de fazer piadas perto de você. O silêncio aumenta. Essa é a solidão do trono.</p>
-          <p>Não tente ser "amigão" de todos para compensar isso. Isso leva ao favoritismo. Aceite que o Guardião caminha ligeiramente separado do grupo, não por arrogância, mas para ter uma visão clara do horizonte.</p>
-          <p>Você perderá a inocência de ser apenas um jogador. Mas ganhará o propósito de ser um protetor.</p>
+          <p class="mb-6">Não tente ser "amigão" de todos para compensar isso. Isso leva ao favoritismo. Aceite que o Guardião caminha ligeiramente separado do grupo, não por arrogância, mas para ter uma visão clara do horizonte.</p>
+          <p class="mb-6">Você perderá a inocência de ser apenas um jogador. Mas ganhará o propósito de ser um protetor.</p>
         ` 
       },
       { 
@@ -54,8 +54,8 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '4. Documentação: Seu Escudo', 
         content: `
           <p class="mb-6">Em um mundo de "ele disse, ela disse", a prova é rei. Nunca puna sem provas. Nunca bana sem um registro.</p>
-          <p>Printscreens, logs de chat, demos gravadas. Mantenha um "Livro das Sombras" (ou um canal privado no Discord) onde cada infração grave é catalogada. Isso não é burocracia; é sua defesa contra acusações de abuso de poder no futuro.</p>
-          <p>Um Guardião sem provas é apenas um tirano com uma opinião.</p>
+          <p class="mb-6">Printscreens, logs de chat, demos gravadas. Mantenha um "Livro das Sombras" (ou um canal privado no Discord) onde cada infração grave é catalogada. Isso não é burocracia; é sua defesa contra acusações de abuso de poder no futuro.</p>
+          <p class="mb-6">Um Guardião sem provas é apenas um tirano com uma opinião.</p>
         ` 
       },
       { 
@@ -63,8 +63,8 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '5. Quando Você Errar', 
         content: `
           <p class="mb-6">Você vai banir um inocente. Você vai perder a paciência. Você vai julgar mal uma situação. Você é humano.</p>
-          <p>A diferença entre um moderador ruim e um Guardião é como lidam com o erro. O ruim dobra a aposta e usa o ego para se defender. O Guardião pede desculpas publicamente.</p>
-          <p>O pedido de desculpas de um líder não diminui sua autoridade; ele a solidifica. A comunidade passa a confiar que, se você punir, é porque é justo, não porque é orgulhoso.</p>
+          <p class="mb-6">A diferença entre um moderador ruim e um Guardião é como lidam com o erro. O ruim dobra a aposta e usa o ego para se defender. O Guardião pede desculpas publicamente.</p>
+          <p class="mb-6">O pedido de desculpas de um líder não diminui sua autoridade; ele a solidifica. A comunidade passa a confiar que, se você punir, é porque é justo, não porque é orgulhoso.</p>
         ` 
       },
       { 
@@ -72,7 +72,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '6. Métricas que Importam', 
         content: `
           <p class="mb-6">Não meça seu sucesso pelo número de banimentos. Um hospital lotado não significa que a cidade é saudável.</p>
-          <p>Meça seu sucesso pelo silêncio pacífico. Pela retenção de novos jogadores. Pela quantidade de "GGs" no final da partida. Se o número de banimentos está caindo mas o servidor está cheio, você venceu.</p>
+          <p class="mb-6">Meça seu sucesso pelo silêncio pacífico. Pela retenção de novos jogadores. Pela quantidade de "GGs" no final da partida. Se o número de banimentos está caindo mas o servidor está cheio, você venceu.</p>
         ` 
       },
       { 
@@ -80,7 +80,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '7. Burnout: Quando a Chama Queima Você', 
         content: `
           <p class="mb-6">Você sentirá cansaço. Ler ódio todos os dias envenena a alma. Se você não fizer pausas, você se tornará aquilo que jurou combater: um ser amargo e reativo.</p>
-          <p>Reconheça os sinais: Irritabilidade com novatos, cinismo, sensação de que "nada adianta". Quando isso acontecer, retire o manto. Descanse. A fogueira não vai apagar se você dormir uma noite.</p>
+          <p class="mb-6">Reconheça os sinais: Irritibilidade com novatos, cinismo, sensação de que "nada adianta". Quando isso acontecer, retire o manto. Descanse. A fogueira não vai apagar se você dormir uma noite.</p>
         ` 
       },
       { 
@@ -88,7 +88,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '8. O Legado', 
         content: `
           <p class="mb-6">Um dia você vai parar. O jogo vai morrer ou você vai crescer. O que resta?</p>
-          <p>Não são os servidores configurados. São as pessoas que você protegeu. O garoto que sofria bullying e encontrou no seu servidor um refúgio. A garota que aprendeu a liderar observando você. Esse é o legado da chama. Ela continua queimando em outras tochas.</p>
+          <p class="mb-6">Não são os servidores configurados. São as pessoas que você protegeu. O garoto que sofria bullying e encontrou no seu servidor um refúgio. A garota que aprendeu a liderar observando você. Esse é o legado da chama. Ela continua queimando em outras tochas.</p>
         ` 
       },
       {
@@ -203,7 +203,7 @@ export const LIBRARY_BOOKS: Book[] = [
         content: `
           <p class="mb-6">A maioria dos moderadores falha porque tenta "vencer" a discussão. Mas contra um troll, vencer é perder. O objetivo deles é arrastar você para a lama.</p>
           <p class="mb-6">A técnica correta é a <strong>Validação Desarmante</strong>. Você ignora o insulto, valida a emoção por trás dele, e força o usuário a racionalizar seu comportamento.</p>
-          <p>Use o simulador abaixo para treinar essa habilidade vital.</p>
+          <p class="mb-6">Use o simulador abaixo para treinar essa habilidade vital.</p>
         ` 
       },
       { 
@@ -211,7 +211,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '3. Psicologia de Massa', 
         content: `
           <p class="mb-6">Uma pessoa é inteligente; uma multidão é uma besta irracional. Quando o "efeito manada" começa, a moralidade individual é suspensa.</p>
-          <p>Seu papel é identificar o "Líder do Motim". Geralmente há 1 ou 2 instigadores e 20 seguidores. Remova cirurgicamente os instigadores (mute, não ban) e a multidão se dispersará confusa.</p>
+          <p class="mb-6">Seu papel é identificar o "Líder do Motim". Geralmente há 1 ou 2 instigadores e 20 seguidores. Remova cirurgicamente os instigadores (mute, não ban) e a multidão se dispersará confusa.</p>
         ` 
       },
       { 
@@ -219,7 +219,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '4. O Vampiro de Atenção', 
         content: `
           <p class="mb-6">Este arquétipo não se importa se a atenção é positiva ou negativa. Ele só quer ser visto. Se você xinga, ele ganha. Se você bane com um texto longo, ele ganha (e posta o print no Twitter).</p>
-          <p>A única arma contra o Vampiro é o vácuo. O "Shadowban" ou o banimento silencioso, sem alarde, sem palco. Corte o oxigênio e a chama dele morrerá.</p>
+          <p class="mb-6">A única arma contra o Vampiro é o vácuo. O "Shadowban" ou o banimento silencioso, sem alarde, sem palco. Corte o oxigênio e a chama dele morrerá.</p>
         ` 
       },
       { 
@@ -227,7 +227,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '5. O Advogado de Regras', 
         content: `
           <p class="mb-6">O "Rules Lawyer" é aquele usuário tóxico que anda no limite exato da regra. Ele não xinga, mas provoca. Ele não faz spam, mas inunda o chat com "conteúdo".</p>
-          <p>Ele usa a letra da lei para violar o espírito da lei. Não debata lógica com ele; você vai perder. Apele para o "Propósito da Comunidade". Se a presença dele drena a diversão, ele deve ser removido, mesmo que tecnicamente não tenha quebrado a regra #4 parágrafo B.</p>
+          <p class="mb-6">Ele usa a letra da lei para violar o espírito da lei. Não debata lógica com ele; você vai perder. Apele para o "Propósito da Comunidade". Se a presença dele drena a diversão, ele deve ser removido, mesmo que tecnicamente não tenha quebrado a regra #4 parágrafo B.</p>
         ` 
       },
       { 
@@ -235,7 +235,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '6. Síndrome do Impostor', 
         content: `
           <p class="mb-6">Muitos Guardiões sentem que são uma fraude. "Quem sou eu para julgar os outros?".</p>
-          <p>Esse sentimento é bom. Ele te mantém humilde. Tenha medo do moderador que *sabe* que está sempre certo. A dúvida é sua aliada, desde que não te paralise. Você não está lá para ser perfeito, está lá para ser o melhor esforço possível.</p>
+          <p class="mb-6">Esse sentimento é bom. Ele te mantém humilde. Tenha medo do moderador que *sabe* que está sempre certo. A dúvida é sua aliada, desde que não te paralise. Você não está lá para ser perfeito, está lá para ser o melhor esforço possível.</p>
         ` 
       },
       { 
@@ -243,7 +243,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '7. Redenção é Possível?', 
         content: `
           <p class="mb-6">Sim. Pessoas mudam, especialmente adolescentes. O troll de 14 anos pode virar o melhor moderador aos 18.</p>
-          <p>Permita apelos de banimento. Dê segundas chances (mas raramente terceiras). A história de um inimigo que virou aliado é a vitória final do Guardião.</p>
+          <p class="mb-6">Permita apelos de banimento. Dê segundas chances (mas raramente terceiras). A história de um inimigo que virou aliado é a vitória final do Guardião.</p>
         ` 
       },
       {
@@ -251,7 +251,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '8. O Efeito Espectador Digital',
         content: `
           <p class="mb-6">Quanto mais pessoas veem uma infração, menor a chance de alguém reportar. Todos acham que "alguém já deve ter avisado".</p>
-          <p>Você precisa quebrar essa inércia. Eduque sua comunidade: "Se você viu, reporte". Crie mecanismos fáceis e anônimos de denúncia. O mal triunfa quando os bons observam em silêncio.</p>
+          <p class="mb-6">Você precisa quebrar essa inércia. Eduque sua comunidade: "Se você viu, reporte". Crie mecanismos fáceis e anônimos de denúncia. O mal triunfa quando os bons observam em silêncio.</p>
         `
       },
       {
@@ -259,7 +259,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '9. Relações Parassociais',
         content: `
           <p class="mb-6">Jogadores muitas vezes criam vínculos imaginários com Admins ou Donos. Eles acham que são seus amigos íntimos só porque jogam no seu servidor.</p>
-          <p>Quando você precisa puni-los, a reação é de "traição pessoal". Entenda que o ódio deles vem da quebra dessa fantasia. Mantenha uma distância profissional saudável. Você é o Guardião, não o melhor amigo de todos.</p>
+          <p class="mb-6">Quando você precisa puni-los, a reação é de "traição pessoal". Entenda que o ódio deles vem da quebra dessa fantasia. Mantenha uma distância profissional saudável. Você é o Guardião, não o melhor amigo de todos.</p>
         `
       },
       {
@@ -267,7 +267,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '10. Gamificação do Ódio',
         content: `
           <p class="mb-6">Para alguns grupos, ser banido é um esporte. Eles competem para ver quem é banido mais rápido (Speedrun de Ban). Se você reage com raiva, você deu a eles o troféu.</p>
-          <p>Bane-os com tédio. Mensagens padrão, sem emoção, sem palco. Transforme a "vitória" deles em um evento burocrático e sem graça.</p>
+          <p class="mb-6">Bane-os com tédio. Mensagens padrão, sem emoção, sem palco. Transforme a "vitória" deles em um evento burocrático e sem graça.</p>
         `
       },
       {
@@ -275,7 +275,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '11. A Espiral do Silêncio',
         content: `
           <p class="mb-6">Se uma minoria barulhenta expressa opiniões tóxicas e ninguém rebate, a maioria moderada se cala por medo de isolamento. O servidor parece mais tóxico do que realmente é.</p>
-          <p>O Guardião deve ser a voz que quebra o silêncio, permitindo que os moderados voltem a falar. Sua intervenção sinaliza: "É seguro ser sensato aqui".</p>
+          <p class="mb-6">O Guardião deve ser a voz que quebra o silêncio, permitindo que os moderados voltem a falar. Sua intervenção sinaliza: "É seguro ser sensato aqui".</p>
         `
       },
       {
@@ -283,7 +283,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '12. Luto e Banimento',
         content: `
           <p class="mb-6">Para um jogador que investiu 2.000 horas no seu servidor, um banimento permanente é uma morte digital. Ele perderá amigos, status e rotina.</p>
-          <p>Espere reações de luto: Negação ("Eu não fiz nada"), Raiva ("Admin lixo"), Barganha ("Pago para voltar"), Depressão e Aceitação. Trate o processo com a seriedade de quem encerra um ciclo de vida.</p>
+          <p class="mb-6">Espere reações de luto: Negação ("Eu não fiz nada"), Raiva ("Admin lixo"), Barganha ("Pago para voltar"), Depressão e Aceitação. Trate o processo com a seriedade de quem encerra um ciclo de vida.</p>
         `
       }
     ]
@@ -302,7 +302,7 @@ export const LIBRARY_BOOKS: Book[] = [
         title: '1. Bare Metal vs Cloud',
         content: `
           <p class="mb-6">A nuvem é flexível, mas o metal é fiel. Para jogos competitivos (CS2, Rust), você precisa de estabilidade de clock da CPU.</p>
-          <p>Servidores compartilhados (VPS barato) sofrem do problema do "vizinho barulhento". Se outro cliente na mesma máquina física processar dados pesados, seu jogo terá lag (micro-stuttering). Para comunidades sérias, alugue Dedicados (Bare Metal).</p>
+          <p class="mb-6">Servidores compartilhados (VPS barato) sofrem do problema do "vizinho barulhento". Se outro cliente na mesma máquina física processar dados pesados, seu jogo terá lag (micro-stuttering). Para comunidades sérias, alugue Dedicados (Bare Metal).</p>
         `
       },
       { 
@@ -311,8 +311,8 @@ export const LIBRARY_BOOKS: Book[] = [
         interactiveComponent: 'ServerLayers',
         content: `
           <p class="mb-6">Segurança não é um muro; é um labirinto. Você deve assumir que uma camada falhará.</p>
-          <p>Muitos admins deixam a porta SSH (22) aberta para o mundo com senha "123456". Isso é suicídio. Use chaves RSA, mude a porta, configure Fail2Ban e IPTables.</p>
-          <p>Explore as camadas abaixo para entender onde cada ataque é mitigado.</p>
+          <p class="mb-6">Muitos admins deixam a porta SSH (22) aberta para o mundo com senha "123456". Isso é suicídio. Use chaves RSA, mude a porta, configure Fail2Ban e IPTables.</p>
+          <p class="mb-6">Explore as camadas abaixo para entender onde cada ataque é mitigado.</p>
         ` 
       },
       { 
