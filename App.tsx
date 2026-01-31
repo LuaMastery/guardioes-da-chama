@@ -681,7 +681,7 @@ const CreditsSection = () => (
                       <div className="w-16 h-16 rounded-full bg-black border border-flame-500/30 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(255,69,0,0.1)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.3)] transition-all">
                           <Crown className="w-8 h-8 text-flame-500" />
                       </div>
-                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Rhuan De Cillo Silva</h3>
+                      <h3 className="font-display text-2xl text-white mb-2 tracking-wide">Rhuan De Cillo Silva ✨</h3>
                       <p className="font-serif text-flame-500/80 text-sm uppercase tracking-widest mb-6">Visionário & Autor</p>
                       <p className="text-zinc-400 text-sm leading-relaxed">
                           Pela concepção filosófica, curadoria do conhecimento arcano e custódia da chama original. A mente que imaginou um refúgio para os protetores digitais.
