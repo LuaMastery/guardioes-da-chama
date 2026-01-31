@@ -412,11 +412,7 @@ interface NotificationUpdate {
   read: boolean;
 }
 
-const RECENT_UPDATES: NotificationUpdate[] = [
-  { id: '1', title: 'Novo Capítulo: O Protocolo Fênix', description: 'Adicionado ao livro "Crisis Management". Aprenda como renascer um servidor.', date: 'Hoje', read: false },
-  { id: '2', title: 'Áudio Neural Atualizado', description: 'Novas vozes disponíveis para leitura imersiva.', date: 'Ontem', read: false },
-  { id: '3', title: 'Modo Leitura', description: 'Agora com navegação lateral e melhor contraste.', date: '2 dias atrás', read: true },
-];
+const RECENT_UPDATES: NotificationUpdate[] = [];
 
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
