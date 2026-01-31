@@ -1479,6 +1479,77 @@ const AboutSection = () => (
           </p>
         </div>
 
+        {/* Política de Privacidade */}
+        <div className="bg-gradient-to-r from-blue-500/10 to-zinc-900/30 border border-blue-500/20 rounded-xl p-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-700">
+          <h3 className="font-display text-2xl text-blue-500 mb-4">🔐 Política de Privacidade</h3>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            <strong className="text-blue-400">Sua privacidade é nossa prioridade absoluta.</strong>
+          </p>
+          <p className="text-zinc-300 leading-relaxed mb-4">
+            No Guardiões da Chama, não coletamos, armazenamos ou compartilhamos nenhum tipo de dado pessoal dos nossos usuários. 
+            Nossa plataforma foi projetada desde o início para ser 100% anônima e respeitar sua privacidade.
+          </p>
+          <div className="space-y-3 text-zinc-300">
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex-shrink-0 mt-1 flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <strong>Zero Coleta de Dados:</strong> Não pedimos nome, email, senha ou qualquer informação pessoal.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex-shrink-0 mt-1 flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <strong>Sem Rastreamento:</strong> Não utilizamos cookies, pixels ou qualquer tecnologia de rastreamento.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex-shrink-0 mt-1 flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <strong>Acesso Livre:</strong> Todo o conteúdo está disponível sem necessidade de cadastro ou login.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex-shrink-0 mt-1 flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <strong>Segurança HTTPS:</strong> Todo o tráfego é criptografado com certificado SSL/TLS válido.
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 p-4 bg-zinc-900/50 rounded-lg border border-zinc-700">
+            <p className="text-sm text-zinc-400 text-center">
+              <strong>Nossa Promessa:</strong> Você pode navegar, ler e aprender conosco com total tranquilidade, 
+              sabendo que sua privacidade está protegida por princípios fundamentais, não apenas por conformidade legal.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 mt-4">
+            <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold rounded-full">
+              🔒 100% Privado
+            </span>
+            <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold rounded-full">
+              🚫 Sem Cookies
+            </span>
+            <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold rounded-full">
+              🛡️ Seguro
+            </span>
+          </div>
+        </div>
+
         {/* Junte-se a Nós */}
         <div className="text-center py-12 animate-in fade-in duration-1000 delay-700">
           <h3 className="font-display text-3xl text-white mb-6">Junte-se à Comunidade</h3>
