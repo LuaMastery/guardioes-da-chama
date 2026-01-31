@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Book, Chapter, InteractiveComponentType } from './types';
 import { LIBRARY_BOOKS } from './constants';
-import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Terminal, Activity, Layers, MessageSquare, Code, AlertTriangle, Maximize2, Minimize2, Sparkles, User, Crown, Cpu, Bell } from 'lucide-react';
+import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Terminal, Activity, Layers, MessageSquare, Code, AlertTriangle, Maximize2, Minimize2, Sparkles, User, Crown, Cpu, Bell, Check, Download } from 'lucide-react';
 
 declare var process: any;
 
@@ -417,14 +417,263 @@ const RECENT_UPDATES: NotificationUpdate[] = [
   { id: '2', title: 'Monitor de Atualizações Disponível', description: 'Baixe nosso aplicativo para receber notificações diretamente no seu computador.', date: 'Agora', read: false },
 ];
 
+// --- Notification Test System ---
+
+interface NotificationTestState {
+  showTest: boolean;
+  testSent: boolean;
+  waitingForResponse: boolean;
+}
+
+const NotificationTestModal = ({ 
+  isOpen, 
+  onClose, 
+  onTestComplete 
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onTestComplete: (received: boolean) => void;
+}) => {
+  const [testState, setTestState] = useState<NotificationTestState>({
+    showTest: false,
+    testSent: false,
+    waitingForResponse: false
+  });
+  const { playClick } = useSound();
+
+  const sendTestNotification = () => {
+    playClick();
+    setTestState(prev => ({ ...prev, testSent: true, waitingForResponse: true }));
+    
+    // Enviar notificação de teste
+    if (Notification.permission === 'granted') {
+      new Notification('🔥 Teste de Notificação - Guardiões da Chama', {
+        body: 'Este é um teste do sistema de notificações. Você recebeu esta mensagem?',
+        icon: 'https://cdn-icons-png.flaticon.com/512/744/744465.png',
+        badge: 'https://cdn-icons-png.flaticon.com/512/744/744465.png',
+        tag: 'notification-test',
+        requireInteraction: true
+      });
+    }
+    
+    // Auto-fechar após 15 segundos se não houver resposta
+    setTimeout(() => {
+      if (testState.waitingForResponse) {
+        setTestState(prev => ({ ...prev, waitingForResponse: false }));
+      }
+    }, 15000);
+  };
+
+  const handleResponse = (received: boolean) => {
+    playClick();
+    onTestComplete(received);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 max-w-md w-full">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-flame-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Bell className="w-8 h-8 text-flame-500" />
+          </div>
+          
+          <h3 className="text-2xl font-bold text-white mb-4">Testar Notificações</h3>
+          
+          {!testState.testSent ? (
+            <>
+              <p className="text-zinc-400 mb-6">
+                Vamos enviar uma notificação de teste para verificar se o sistema está funcionando corretamente no seu computador.
+              </p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={sendTestNotification}
+                  className="px-6 py-3 bg-flame-600 hover:bg-flame-500 text-white font-semibold rounded-lg transition-colors"
+                >
+                  Enviar Teste
+                </button>
+                <button
+                  onClick={() => onClose()}
+                  className="px-6 py-3 bg-zinc-700 hover:bg-zinc-600 text-white font-semibold rounded-lg transition-colors"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-zinc-400 mb-6">
+                {testState.waitingForResponse 
+                  ? "Aguardando sua resposta... Verifique as notificações do seu computador."
+                  : "Você recebeu a notificação de teste?"}
+              </p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => handleResponse(true)}
+                  className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <Check className="w-5 h-5" />
+                  Sim, recebi!
+                </button>
+                <button
+                  onClick={() => handleResponse(false)}
+                  className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <X className="w-5 h-5" />
+                  Não, não recebi
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TroubleshootingModal = ({ 
+  isOpen, 
+  onClose 
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  const { playClick } = useSound();
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      title: "Passo 1: Verificar Permissões",
+      content: "Abra as configurações do seu navegador e verifique se as notificações estão permitidas para este site.",
+      code: "Chrome: Configurações > Privacidade > Notificações\nFirefox: Preferências > Privacidade > Notificações"
+    },
+    {
+      title: "Passo 2: Verificar Sistema Operacional",
+      content: "Verifique se as notificações estão ativadas nas configurações do seu sistema operacional.",
+      code: "Windows: Configurações > Sistema > Notificações\nmacOS: Preferências do Sistema > Notificações"
+    },
+    {
+      title: "Passo 3: Reinstalar o Monitor",
+      content: "Baixe novamente o arquivo revisado e reinstale o monitor seguindo as instruções.",
+      code: "1. Baixe o arquivo revisado\n2. Abra o console (F12)\n3. Cole o novo código\n4. Permita notificações"
+    }
+  ];
+
+  const downloadRevisedFile = () => {
+    playClick();
+    const link = document.createElement('a');
+    link.href = '/guardioes-monitor.js';
+    link.download = 'guardioes-monitor-revised.js';
+    link.click();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertTriangle className="w-8 h-8 text-yellow-500" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">Resolução de Problemas</h3>
+          <p className="text-zinc-400">Siga estes passos para configurar as notificações corretamente</p>
+        </div>
+
+        <div className="space-y-6">
+          {steps.map((step, index) => (
+            <div key={index} className="bg-zinc-800 rounded-lg p-6">
+              <div className="flex items-start gap-4">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  index <= currentStep ? 'bg-flame-500' : 'bg-zinc-700'
+                }`}>
+                  <span className="text-white font-semibold">{index + 1}</span>
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-white mb-2">{step.title}</h4>
+                  <p className="text-zinc-400 mb-3">{step.content}</p>
+                  <div className="bg-zinc-900 rounded p-3 font-mono text-sm text-zinc-300">
+                    {step.code}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
+            <h4 className="text-lg font-semibold text-blue-400 mb-3">Download do Arquivo Revisado</h4>
+            <p className="text-zinc-400 mb-4">
+              Baixe a versão revisada do monitor que inclui melhorias na detecção de notificações.
+            </p>
+            <button
+              onClick={downloadRevisedFile}
+              className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <Download className="w-5 h-5" />
+              Baixar Arquivo Revisado
+            </button>
+          </div>
+        </div>
+
+        <div className="flex gap-4 justify-center mt-8">
+          <button
+            onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+            className="px-6 py-3 bg-zinc-700 hover:bg-zinc-600 text-white font-semibold rounded-lg transition-colors"
+            disabled={currentStep === 0}
+          >
+            Anterior
+          </button>
+          <button
+            onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+            className="px-6 py-3 bg-zinc-700 hover:bg-zinc-600 text-white font-semibold rounded-lg transition-colors"
+            disabled={currentStep === steps.length - 1}
+          >
+            Próximo
+          </button>
+          <button
+            onClick={onClose}
+            className="px-6 py-3 bg-flame-600 hover:bg-flame-500 text-white font-semibold rounded-lg transition-colors"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [updates, setUpdates] = useState(RECENT_UPDATES);
   const [permission, setPermission] = useState(Notification.permission);
+  const [showTestModal, setShowTestModal] = useState(false);
+  const [showTroubleshootingModal, setShowTroubleshootingModal] = useState(false);
+  const [downloadDetected, setDownloadDetected] = useState(false);
   const { playHover, playClick } = useSound();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = updates.filter(u => !u.read).length;
+
+  // Detectar quando o usuário baixa o arquivo
+  useEffect(() => {
+    const handleDownloadClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.tagName === 'A' && target.getAttribute('href')?.includes('guardioes-monitor.js')) {
+        console.log('Download do monitor detectado');
+        setDownloadDetected(true);
+        
+        // Mostrar modal de teste após 2 segundos
+        setTimeout(() => {
+          setShowTestModal(true);
+        }, 2000);
+      }
+    };
+
+    document.addEventListener('click', handleDownloadClick);
+    return () => document.removeEventListener('click', handleDownloadClick);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -444,6 +693,26 @@ const NotificationCenter = () => {
       setTimeout(() => {
         setUpdates(prev => prev.map(u => ({ ...u, read: true })));
       }, 2000);
+    }
+  };
+
+  const handleTestComplete = (received: boolean) => {
+    if (received) {
+      // Usuário recebeu a notificação - voltar para tela inicial
+      console.log('Teste de notificação bem-sucedido');
+      // Adicionar notificação de sucesso
+      const successUpdate = {
+        id: Date.now().toString(),
+        title: '✅ Notificações Configuradas!',
+        description: 'Sistema de notificações está funcionando perfeitamente.',
+        date: 'Agora',
+        read: false
+      };
+      setUpdates(prev => [successUpdate, ...prev]);
+    } else {
+      // Usuário não recebeu - mostrar troubleshooting
+      console.log('Teste de notificação falhou - mostrando troubleshooting');
+      setShowTroubleshootingModal(true);
     }
   };
 
@@ -558,6 +827,18 @@ const NotificationCenter = () => {
           </div>
         </div>
       )}
+      
+      {/* Modais de Teste e Troubleshooting */}
+      <NotificationTestModal 
+        isOpen={showTestModal}
+        onClose={() => setShowTestModal(false)}
+        onTestComplete={handleTestComplete}
+      />
+      
+      <TroubleshootingModal 
+        isOpen={showTroubleshootingModal}
+        onClose={() => setShowTroubleshootingModal(false)}
+      />
     </div>
   );
 };
