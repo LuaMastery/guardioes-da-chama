@@ -116,12 +116,28 @@ const useLikeSystem = () => {
     const savedLikes = localStorage.getItem('bookLikes');
     const savedUserLikes = localStorage.getItem('userLikedBooks');
     
+    console.log('Loading likes from localStorage:', { savedLikes, savedUserLikes });
+    
     if (savedLikes) {
-      setLikes(JSON.parse(savedLikes));
+      try {
+        const parsedLikes = JSON.parse(savedLikes);
+        console.log('Parsed likes:', parsedLikes);
+        setLikes(parsedLikes);
+      } catch (error) {
+        console.error('Error parsing likes:', error);
+        setLikes({});
+      }
     }
     
     if (savedUserLikes) {
-      setUserLikes(new Set(JSON.parse(savedUserLikes)));
+      try {
+        const parsedUserLikes = JSON.parse(savedUserLikes);
+        console.log('Parsed user likes:', parsedUserLikes);
+        setUserLikes(new Set(parsedUserLikes));
+      } catch (error) {
+        console.error('Error parsing user likes:', error);
+        setUserLikes(new Set());
+      }
     }
   }, []);
 
@@ -1147,7 +1163,7 @@ const BookCard: React.FC<{
               </svg>
             </button>
             <span className="text-xs text-zinc-500 min-w-[20px] text-center">
-              {likeCount > 0 ? likeCount : ''}
+              {likeCount}
             </span>
           </div>
         </div>
@@ -1190,6 +1206,11 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
   const [tooltip, setTooltip] = useState<{ book: Book, x: number, y: number } | null>(null);
   const { playHover, playClick } = useSound();
   const { likes, toggleLike, isLiked } = useLikeSystem();
+
+  // Debug: Verificar se os likes estão sendo carregados
+  useEffect(() => {
+    console.log('Likes loaded:', likes);
+  }, [likes]);
 
   const filteredBooks = LIBRARY_BOOKS.filter(book => {
     const matchLevel = filterLevel === 'all' || book.difficulty === filterLevel;
