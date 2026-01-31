@@ -650,30 +650,136 @@ const Hero = ({ onEnter }: { onEnter: () => void }) => {
   );
 };
 
-const PhilosophySection = () => (
-  <section className="py-32 px-6 bg-void-900">
-    <div className="max-w-3xl mx-auto">
-      <h2 className="font-display text-4xl text-white mb-12 text-center">O Manifesto do Guardião</h2>
-      <div className="prose prose-invert prose-lg mx-auto font-serif text-zinc-300 leading-loose">
-        <p className="first-letter:text-5xl first-letter:text-flame-500 first-letter:float-left first-letter:mr-3">
-          Existe um tipo de pessoa que sente o mundo digital de forma diferente. Enquanto outros veem apenas pixels e avatares, você vê intenções, dores e esperanças.
-        </p>
-        <p>
-          Quando uma comunidade adoece, você sente fisicamente. O caos não é apenas barulho para você; é uma dissonância que precisa ser resolvida. Por muito tempo, você achou que essa sensibilidade era uma fraqueza. Que você levava as coisas "muito a sério".
-        </p>
-        <blockquote className="border-l-2 border-flame-500 pl-6 my-8 italic text-white text-xl">
-          "A toxicidade é o que resta quando a chama da esperança se apaga."
-        </blockquote>
-        <p>
-          Mas a verdade é que o mundo precisa de quem leve a sério. Sem Guardiões, o fogo da comunidade se apaga ou vira um incêndio incontrolável. Aqui, ensinamos você a manusear essa chama. A proteger os outros sem se queimar.
-        </p>
-        <p>
-          Você não está banindo uma pessoa. Está protegendo milhares de experiências. Bem-vindo ao seu propósito.
-        </p>
+const PhilosophySection = () => {
+  // Array com 20 filosofias diferentes
+  const philosophies = [
+    {
+      title: "A Chama da Responsabilidade",
+      content: "Cada clique, cada decisão, cada momento de moderação carrega o peso de milhares de experiências. O Guardião não age por poder, mas por dever."
+    },
+    {
+      title: "O Equilíbrio Delicado",
+      content: "Moderar não é apenas punir, é equilibrar. Como um médico que cura sem ferir, o Guardião restaura a harmonia sem destruir a individualidade."
+    },
+    {
+      title: "A Sabedoria do Silêncio",
+      content: "Às vezes, a ação mais poderosa é a não-ação. Saber quando intervir e quando observar é a arte dos verdadeiros Guardiões."
+    },
+    {
+      title: "A Força da Empatia",
+      content: "Por trás de cada avatar existe uma pessoa com esperanças, medos e sonhos. O Guardião vê além do comportamento e enxerga a humanidade."
+    },
+    {
+      title: "A Coragem da Moderação",
+      content: "É mais fácil ignorar o caos do que enfrentá-lo. O Guardião escolhe o caminho difícil porque sabe que a paz tem um preço."
+    },
+    {
+      title: "A Persistência da Chama",
+      content: "A moderação é uma maratona, não uma corrida. Cada dia é uma nova batalha na guerra infinita pela civilidade digital."
+    },
+    {
+      title: "A Humildade do Poder",
+      content: "O verdadeiro Guardião sabe que não é dono da verdade, apenas um guardião temporário da chama que ilumina a comunidade."
+    },
+    {
+      title: "A Visão Além do Código",
+      content: "O que vemos como toxicidade é apenas dor disfarçada. O Guardião aprende a ler entre as linhas do comportamento digital."
+    },
+    {
+      title: "A Arte da Transformação",
+      content: "Moderar não é eliminar, é transformar. Levar o caos à ordem, o ódio ao entendimento, a confusão à clareza."
+    },
+    {
+      title: "A Paciência Ativa",
+      content: "A paciência do Guardião não é passividade, é a espera estratégica pelo momento certo de agir, de ensinar, de inspirar."
+    },
+    {
+      title: "A Legibilidade Digital",
+      content: "Cada mensagem, cada emoji, cada pausa conta uma história. O Guardião aprende a ler a linguagem não-dita das comunidades."
+    },
+    {
+      title: "O Propósito Redescoberto",
+      content: "Muitos chegam à moderação por acaso, mas permanecem por propósito. O Guardião encontra significado no serviço aos outros."
+    },
+    {
+      title: "A Resiliência do Guardião",
+      content: "Cada insulto absorvido, cada conflito resolvido, fortalece o Guardião. O que não nos destrói, nos torna mais sábios."
+    },
+    {
+      title: "A Comunidade como Jardim",
+      content: "Uma comunidade floresce quando cuidada. O Guardião é o jardineiro que remove as ervas daninhas sem danificar as flores."
+    },
+    {
+      title: "A Justiça Restaurativa",
+      content: "O objetivo não é punir, mas restaurar. O Guardião busca a reconciliação onde outros veem apenas castigo."
+    },
+    {
+      title: "A Sabedoria Acumulada",
+      content: "Cada dia de moderação adiciona uma camada de sabedoria. O Guardião aprende que nunca termina sua jornada de aprendizado."
+    },
+    {
+      title: "O Poder do Exemplo",
+      content: "A melhor moderação é a que inspira outros a se moderarem. O Guardião lidera pelo exemplo, não pela autoridade."
+    },
+    {
+      title: "A Esperança como Estratégia",
+      content: "Mesmo no caos mais absoluto, o Guardião mantém a esperança. Porque onde há esperança, há possibilidade de redenção."
+    },
+    {
+      title: "A Equidade Digital",
+      content: "Regras iguais para todos, mas aplicadas com sabedoria. O Guardião entende que justiça não é o mesmo que igualdade cega."
+    },
+    {
+      title: "A Eternidade do Impacto",
+      content: "Cada ação de moderação ecoa no tempo. O Guardião sabe que está escrevendo a história digital das futuras gerações."
+    }
+  ];
+
+  // Calcular qual filosofia mostrar baseado na data atual
+  const getDailyPhilosophy = () => {
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diffTime = Math.abs(today.getTime() - startOfYear.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const philosophyIndex = diffDays % philosophies.length;
+    return philosophies[philosophyIndex];
+  };
+
+  const dailyPhilosophy = getDailyPhilosophy();
+
+  return (
+    <section className="py-32 px-6 bg-void-900">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-flame-500/10 border border-flame-500/20 rounded-full mb-6">
+            <span className="text-flame-400 text-sm font-semibold">📅 Filosofia do Dia</span>
+          </div>
+          <h2 className="font-display text-4xl text-white mb-4">{dailyPhilosophy.title}</h2>
+          <p className="text-zinc-500 text-sm">
+            {new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </div>
+        
+        <div className="prose prose-invert prose-lg mx-auto font-serif text-zinc-300 leading-loose">
+          <p className="first-letter:text-5xl first-letter:text-flame-500 first-letter:float-left first-letter:mr-3">
+            {dailyPhilosophy.content}
+          </p>
+        </div>
+
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center gap-4 text-zinc-500 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-flame-500 rounded-full animate-pulse"></div>
+              <span>Filosofia atualizada diariamente</span>
+            </div>
+            <span>•</span>
+            <span>20 sabedorias rotativas</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const CreditsSection = () => (
     <section className="py-32 px-6 bg-void-900 min-h-screen flex items-center justify-center">
