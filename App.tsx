@@ -210,6 +210,57 @@ const useLikeSystem = () => {
   return { likes, userLikes, toggleLike, isLiked: (bookId: string) => userLikes.has(bookId) };
 };
 
+// --- Favorite System ---
+const useFavoriteSystem = () => {
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Carregar favoritos do localStorage ao montar
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('bookFavorites');
+    
+    console.log('Loading favorites from localStorage:', { savedFavorites });
+    
+    if (savedFavorites) {
+      try {
+        const parsedFavorites = JSON.parse(savedFavorites);
+        console.log('Parsed favorites:', parsedFavorites);
+        setFavorites(new Set(parsedFavorites));
+      } catch (error) {
+        console.error('Error parsing favorites:', error);
+        setFavorites(new Set());
+      }
+    }
+    
+    setIsLoaded(true);
+  }, []);
+
+  // Salvar favoritos no localStorage quando mudar (após carregar)
+  useEffect(() => {
+    if (isLoaded) {
+      console.log('Saving favorites to localStorage:', Array.from(favorites));
+      localStorage.setItem('bookFavorites', JSON.stringify(Array.from(favorites)));
+    }
+  }, [favorites, isLoaded]);
+
+  const toggleFavorite = (bookId: string) => {
+    console.log('toggleFavorite called for:', bookId, 'isFavorite:', favorites.has(bookId));
+    setFavorites(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(bookId)) {
+        newSet.delete(bookId);
+        console.log('Removed from favorites:', bookId);
+      } else {
+        newSet.add(bookId);
+        console.log('Added to favorites:', bookId);
+      }
+      return newSet;
+    });
+  };
+
+  return { favorites, toggleFavorite, isFavorite: (bookId: string) => favorites.has(bookId) };
+};
+
 // --- Audio System (UI SFX) ---
 
 const useSound = () => {
@@ -1148,15 +1199,17 @@ const BookCard: React.FC<{
   onMouseMove: (e: React.MouseEvent) => void;
   onMouseLeave: () => void;
   onLike: (bookId: string) => void;
+  onFavorite: (bookId: string) => void;
   isLiked: boolean;
+  isFavorite: boolean;
   likeCount: number;
-}> = ({ book, onClick, onMouseMove, onMouseLeave, onLike, isLiked, likeCount }) => {
+}> = ({ book, onClick, onMouseMove, onMouseLeave, onLike, onFavorite, isLiked, isFavorite, likeCount }) => {
   const { playHover, playClick } = useSound();
   
   // Debug para verificar props
   useEffect(() => {
-    console.log(`BookCard ${book.id}:`, { isLiked, likeCount });
-  }, [book.id, isLiked, likeCount]);
+    console.log(`BookCard ${book.id}:`, { isLiked, isFavorite, likeCount });
+  }, [book.id, isLiked, isFavorite, likeCount]);
   
   return (
     <div 
@@ -1193,6 +1246,24 @@ const BookCard: React.FC<{
             <span className="text-xs text-zinc-500 min-w-[20px] text-center">
               {likeCount}
             </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log(`Favorite button clicked for book ${book.id}`);
+                playClick();
+                onFavorite(book.id);
+              }}
+              className={`p-2 rounded-full transition-all duration-300 ${
+                isFavorite 
+                  ? 'bg-yellow-500 text-white hover:bg-yellow-600' 
+                  : 'bg-zinc-800 text-zinc-400 hover:text-yellow-500'
+              }`}
+              title={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            >
+              <svg className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+            </button>
           </div>
         </div>
         <h3 className="font-display text-2xl md:text-3xl text-white font-bold mb-2 group-hover:text-flame-500 transition-colors leading-tight">
@@ -1234,11 +1305,17 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
   const [tooltip, setTooltip] = useState<{ book: Book, x: number, y: number } | null>(null);
   const { playHover, playClick } = useSound();
   const { likes, toggleLike, isLiked } = useLikeSystem();
+  const { toggleFavorite, isFavorite } = useFavoriteSystem();
 
   // Debug: Verificar se os likes estão sendo carregados
   useEffect(() => {
     console.log('Likes loaded:', likes);
   }, [likes]);
+
+  // Debug: Verificar se os favoritos estão sendo carregados
+  useEffect(() => {
+    console.log('Favorites loaded:', Array.from(isFavorite ? [] : []));
+  }, []);
 
   const filteredBooks = LIBRARY_BOOKS.filter(book => {
     const matchLevel = filterLevel === 'all' || book.difficulty === filterLevel;
@@ -1333,7 +1410,9 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
               onMouseMove={(e) => handleMouseMove(e, book)}
               onMouseLeave={handleMouseLeave}
               onLike={toggleLike}
+              onFavorite={toggleFavorite}
               isLiked={isLiked(book.id)}
+              isFavorite={isFavorite(book.id)}
               likeCount={likes[book.id] || 0}
             />
           ))}
