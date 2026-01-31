@@ -809,6 +809,9 @@ const BookCard: React.FC<{
           {book.title}
         </h3>
         <p className="font-serif text-sm text-zinc-400 italic mb-4">{book.subtitle}</p>
+        <p className="text-xs text-zinc-500 leading-relaxed mb-4 line-clamp-3">
+          {book.description}
+        </p>
         <div className="flex flex-wrap gap-2 mt-4">
           {book.tags.slice(0, 3).map(tag => (
             <span key={tag} className="text-[10px] uppercase tracking-wider px-2 py-1 border border-zinc-800 text-zinc-500">
@@ -819,6 +822,9 @@ const BookCard: React.FC<{
       </div>
 
       <div className="relative z-10 mt-auto">
+        <button className="w-full py-3 bg-flame-600 hover:bg-flame-500 text-white text-xs font-bold uppercase tracking-widest rounded transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_rgba(255,69,0,0.3)]">
+          Ler Livro
+        </button>
       </div>
     </div>
   );
