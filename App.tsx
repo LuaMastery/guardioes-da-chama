@@ -833,6 +833,7 @@ const BookCard: React.FC<{
 const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
   const [filterLevel, setFilterLevel] = useState<string>('all');
   const [filterPlatform, setFilterPlatform] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [tooltip, setTooltip] = useState<{ book: Book, x: number, y: number } | null>(null);
   const { playHover, playClick } = useSound();
 
@@ -843,7 +844,15 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
       || (filterPlatform === 'Discord' && book.platform.includes('Discord'))
       || (filterPlatform === 'Server' && book.platform.includes('Servidor'))
       || (filterPlatform === 'Geral' && book.platform.includes('Geral'));
-    return matchLevel && matchPlatform;
+    
+    const searchLower = searchQuery.toLowerCase();
+    const matchSearch = searchQuery === '' || 
+      book.title.toLowerCase().includes(searchLower) ||
+      book.id.toLowerCase().includes(searchLower) ||
+      book.subtitle.toLowerCase().includes(searchLower) ||
+      book.tags.some(tag => tag.toLowerCase().includes(searchLower));
+    
+    return matchLevel && matchPlatform && matchSearch;
   });
 
   const handleMouseMove = (e: React.MouseEvent, book: Book) => {
@@ -859,6 +868,30 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
           <h2 className="font-display text-4xl text-white mb-6">A Biblioteca</h2>
+          
+          {/* Campo de Pesquisa */}
+          <div className="mb-8">
+            <div className="relative max-w-2xl">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Pesquisar por nome, ID ou tags..."
+                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/10 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-flame-500/50 focus:bg-zinc-900/80 transition-all"
+              />
+              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-500">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </div>
+            {searchQuery && (
+              <p className="mt-2 text-sm text-zinc-500">
+                Resultados para: <span className="text-flame-400">"{searchQuery}"</span> ({filteredBooks.length} livros encontrados)
+              </p>
+            )}
+          </div>
+
           <div className="flex flex-col md:flex-row gap-6 border-b border-white/10 pb-6">
             <div className="flex gap-4 overflow-x-auto pb-2 md:pb-0">
               {['all', 'Iniciante', 'Intermediário', 'Avançado', 'Mestre'].map(level => (
