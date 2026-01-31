@@ -5,6 +5,72 @@ import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Te
 
 declare var process: any;
 
+// --- Like System ---
+const useLikeSystem = () => {
+  const [likes, setLikes] = useState<Record<string, number>>({});
+  const [userLikes, setUserLikes] = useState<Set<string>>(new Set());
+
+  // Carregar likes do localStorage ao montar
+  useEffect(() => {
+    const savedLikes = localStorage.getItem('bookLikes');
+    const savedUserLikes = localStorage.getItem('userLikedBooks');
+    
+    if (savedLikes) {
+      setLikes(JSON.parse(savedLikes));
+    }
+    
+    if (savedUserLikes) {
+      setUserLikes(new Set(JSON.parse(savedUserLikes)));
+    }
+  }, []);
+
+  // Salvar likes no localStorage quando mudar
+  useEffect(() => {
+    localStorage.setItem('bookLikes', JSON.stringify(likes));
+  }, [likes]);
+
+  // Salvar likes do usuário no localStorage quando mudar
+  useEffect(() => {
+    localStorage.setItem('userLikedBooks', JSON.stringify(Array.from(userLikes)));
+  }, [userLikes]);
+
+  const handleLike = (bookId: string) => {
+    setLikes(prev => ({
+      ...prev,
+      [bookId]: (prev[bookId] || 0) + 1
+    }));
+    
+    setUserLikes(prev => {
+      const newSet = new Set(prev);
+      newSet.add(bookId);
+      return newSet;
+    });
+  };
+
+  const handleUnlike = (bookId: string) => {
+    setLikes(prev => ({
+      ...prev,
+      [bookId]: Math.max(0, (prev[bookId] || 1) - 1)
+    }));
+    
+    setUserLikes(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(bookId);
+      return newSet;
+    });
+  };
+
+  const toggleLike = (bookId: string) => {
+    if (userLikes.has(bookId)) {
+      handleUnlike(bookId);
+    } else {
+      handleLike(bookId);
+    }
+  };
+
+  return { likes, userLikes, toggleLike, isLiked: (bookId: string) => userLikes.has(bookId) };
+};
+
 // --- Audio System (UI SFX) ---
 
 const useSound = () => {
@@ -910,7 +976,10 @@ const BookCard: React.FC<{
   onClick: () => void;
   onMouseMove: (e: React.MouseEvent) => void;
   onMouseLeave: () => void;
-}> = ({ book, onClick, onMouseMove, onMouseLeave }) => {
+  onLike: (bookId: string) => void;
+  isLiked: boolean;
+  likeCount: number;
+}> = ({ book, onClick, onMouseMove, onMouseLeave, onLike, isLiked, likeCount }) => {
   const { playHover, playClick } = useSound();
   
   return (
@@ -926,7 +995,28 @@ const BookCard: React.FC<{
       <div className="relative z-10">
         <div className="flex justify-between items-start mb-4">
           <span className="text-xs uppercase tracking-widest text-flame-500 font-bold">{book.difficulty}</span>
-          <BookOpen className="w-5 h-5 text-zinc-600 group-hover:text-flame-500 transition-colors" />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                playClick();
+                onLike(book.id);
+              }}
+              className={`p-2 rounded-full transition-all duration-300 ${
+                isLiked 
+                  ? 'bg-flame-500 text-white hover:bg-flame-600' 
+                  : 'bg-zinc-800 text-zinc-400 hover:text-flame-500'
+              }`}
+              title={isLiked ? "Remover curtida" : "Curtir este livro"}
+            >
+              <svg className="w-4 h-4" fill={isLiked ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </button>
+            <span className="text-xs text-zinc-500 min-w-[20px] text-center">
+              {likeCount > 0 ? likeCount : ''}
+            </span>
+          </div>
         </div>
         <h3 className="font-display text-2xl md:text-3xl text-white font-bold mb-2 group-hover:text-flame-500 transition-colors leading-tight">
           {book.title}
@@ -966,6 +1056,7 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [tooltip, setTooltip] = useState<{ book: Book, x: number, y: number } | null>(null);
   const { playHover, playClick } = useSound();
+  const { likes, toggleLike, isLiked } = useLikeSystem();
 
   const filteredBooks = LIBRARY_BOOKS.filter(book => {
     const matchLevel = filterLevel === 'all' || book.difficulty === filterLevel;
@@ -1059,6 +1150,9 @@ const Library = ({ onOpenBook }: { onOpenBook: (book: Book) => void }) => {
               onClick={() => onOpenBook(book)} 
               onMouseMove={(e) => handleMouseMove(e, book)}
               onMouseLeave={handleMouseLeave}
+              onLike={toggleLike}
+              isLiked={isLiked(book.id)}
+              likeCount={likes[book.id] || 0}
             />
           ))}
         </div>
