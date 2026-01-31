@@ -1489,7 +1489,7 @@ const ReaderModal = ({ book, onClose }: { book: Book; onClose: () => void }) => 
   );
 }
 
-const AboutSection = () => (
+const AboutSection = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 'philosophy' | 'about' | 'credits') => void }) => (
   <section className="py-24 px-6 min-h-screen bg-void-900">
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-16">
@@ -1743,7 +1743,8 @@ const AboutSection = () => (
               Começar Agora
             </button>
             <button 
-              onClick={() => window.location.href = '#library'}
+              onClick={() => onNavigate('library')}
+              onMouseEnter={() => {}}
               className="px-8 py-3 border border-flame-500 text-flame-500 hover:bg-flame-500 hover:text-white font-bold uppercase tracking-widest rounded transition-all duration-300"
             >
               Explorar Biblioteca
@@ -1782,7 +1783,7 @@ const App = () => {
         )}
 
         {view === 'about' && (
-          <AboutSection />
+          <AboutSection onNavigate={handleNavigate} />
         )}
 
         {view === 'credits' && (
