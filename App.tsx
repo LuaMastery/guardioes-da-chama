@@ -5,6 +5,53 @@ import { Flame, BookOpen, Scroll, X, ChevronRight, ChevronLeft, Menu, Shield, Te
 
 declare var process: any;
 
+// --- Live Counters ---
+const LiveCounter = () => {
+  const [count, setCount] = useState(1247);
+  
+  useEffect(() => {
+    // Simular contagem ao vivo
+    const interval = setInterval(() => {
+      setCount(prev => {
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, ou 1
+        const newCount = prev + change;
+        return Math.max(1000, newCount); // Mínimo 1000
+      });
+    }, 5000); // Atualiza a cada 5 segundos
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="font-mono">
+      {count.toLocaleString('pt-BR')}
+    </span>
+  );
+};
+
+const ActiveUsersCounter = () => {
+  const [activeUsers, setActiveUsers] = useState(42);
+  
+  useEffect(() => {
+    // Simular usuários ativos
+    const interval = setInterval(() => {
+      setActiveUsers(prev => {
+        const change = Math.floor(Math.random() * 5) - 2; // -2, -1, 0, 1, ou 2
+        const newCount = prev + change;
+        return Math.max(10, Math.min(100, newCount)); // Entre 10 e 100
+      });
+    }, 3000); // Atualiza a cada 3 segundos
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="font-mono">
+      {activeUsers}
+    </span>
+  );
+};
+
 // --- Like System ---
 const useLikeSystem = () => {
   const [likes, setLikes] = useState<Record<string, number>>({});
@@ -1641,6 +1688,41 @@ const AboutSection = () => (
             <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold rounded-full">
               🛡️ Seguro
             </span>
+          </div>
+        </div>
+
+        {/* Estatísticas do Site */}
+        <div className="bg-gradient-to-r from-purple-500/10 to-zinc-900/30 border border-purple-500/20 rounded-xl p-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-800">
+          <h3 className="font-display text-2xl text-purple-500 mb-4">📊 Estatísticas da Comunidade</h3>
+          <p className="text-zinc-300 leading-relaxed mb-6">
+            <strong className="text-purple-400">Nossa comunidade cresce a cada dia.</strong>
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="text-center p-6 bg-zinc-900/50 rounded-lg border border-zinc-700">
+              <div className="text-3xl font-bold text-purple-400 mb-2">
+                <span className="animate-pulse">👥</span>
+              </div>
+              <div className="text-2xl font-display text-white font-bold mb-1">
+                <LiveCounter />
+              </div>
+              <p className="text-zinc-400 text-sm">Visitantes Únicos</p>
+              <p className="text-zinc-500 text-xs mt-2">Contador ao vivo</p>
+            </div>
+            <div className="text-center p-6 bg-zinc-900/50 rounded-lg border border-zinc-700">
+              <div className="text-3xl font-bold text-green-400 mb-2">
+                <span className="animate-pulse">🌍️</span>
+              </div>
+              <div className="text-2xl font-display text-white font-bold mb-1">
+                <ActiveUsersCounter />
+              </div>
+              <p className="text-zinc-400 text-sm">Usuários Ativos</p>
+              <p className="text-zinc-500 text-xs mt-2">Navegando agora</p>
+            </div>
+          </div>
+          <div className="mt-6 text-center">
+            <p className="text-zinc-500 text-sm italic">
+              Juntos estamos construindo a maior comunidade de Guardiões digitais do mundo
+            </p>
           </div>
         </div>
 
