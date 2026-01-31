@@ -265,56 +265,97 @@ const useFavoriteSystem = () => {
 
 const useSound = () => {
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const isInitializedRef = useRef(false);
 
   const initAudio = () => {
     if (!audioCtxRef.current) {
       audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      console.log('AudioContext created:', audioCtxRef.current.state);
     }
+    
+    // Tentar resumir o AudioContext se estiver suspenso
     if (audioCtxRef.current.state === 'suspended') {
-      audioCtxRef.current.resume();
+      audioCtxRef.current.resume().then(() => {
+        console.log('AudioContext resumed successfully');
+        isInitializedRef.current = true;
+      }).catch(error => {
+        console.error('Error resuming AudioContext:', error);
+      });
+    } else {
+      isInitializedRef.current = true;
     }
+    
     return audioCtxRef.current;
   };
 
   const playHover = () => {
-    const ctx = initAudio();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    try {
+      const ctx = initAudio();
+      if (!ctx || ctx.state === 'suspended') {
+        console.log('AudioContext not ready for hover sound');
+        return;
+      }
 
-    // Som sutil de "tick" de ar/alta frequência
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    gain.gain.setValueAtTime(0.015, ctx.currentTime); // Volume muito baixo
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+      // Som sutil de "tick" de ar/alta frequência
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.05);
+      gain.gain.setValueAtTime(0.015, ctx.currentTime); // Volume mais alto
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.05);
+      
+      console.log('Hover sound played');
+    } catch (error) {
+      console.error('Error playing hover sound:', error);
+    }
   };
 
   const playClick = () => {
-    const ctx = initAudio();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    try {
+      const ctx = initAudio();
+      if (!ctx || ctx.state === 'suspended') {
+        console.log('AudioContext not ready for click sound');
+        return;
+      }
 
-    // Som de "blip" suave e tecnológico
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(300, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.15);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    gain.gain.setValueAtTime(0.05, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      // Som de "blip" suave e tecnológico
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(300, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.15);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime); // Volume mais alto
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+      
+      console.log('Click sound played');
+    } catch (error) {
+      console.error('Error playing click sound:', error);
+    }
   };
 
-  return { playHover, playClick };
+  // Inicializar áudio na primeira interação do usuário
+  const initializeAudio = () => {
+    if (!isInitializedRef.current) {
+      initAudio();
+    }
+  };
+
+  return { playHover, playClick, initializeAudio };
 };
 
 // --- Botão com Efeitos Sonoros Integrados ---
@@ -331,10 +372,11 @@ const SoundButton = ({
   disabled?: boolean;
   [key: string]: any;
 }) => {
-  const { playHover, playClick } = useSound();
+  const { playHover, playClick, initializeAudio } = useSound();
 
   const handleClick = () => {
     if (!disabled) {
+      initializeAudio(); // Garantir que o áudio esteja inicializado
       playClick();
       if (onClick) onClick();
     }
@@ -342,6 +384,7 @@ const SoundButton = ({
 
   const handleMouseEnter = () => {
     if (!disabled) {
+      initializeAudio(); // Garantir que o áudio esteja inicializado
       playHover();
     }
   };
@@ -1973,6 +2016,30 @@ const AboutSection = ({ onNavigate }: { onNavigate: (page: 'home' | 'library' | 
 const App = () => {
   const [view, setView] = useState<'home' | 'library' | 'philosophy' | 'about' | 'credits'>('home');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const { initializeAudio } = useSound();
+
+  // Inicializar áudio na primeira interação do usuário
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      initializeAudio();
+      console.log('Audio initialized on first user interaction');
+      // Remover o listener após a primeira interação
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('mousemove', handleFirstInteraction);
+    };
+
+    // Adicionar listeners para múltiplos tipos de interação
+    document.addEventListener('click', handleFirstInteraction, { once: true });
+    document.addEventListener('keydown', handleFirstInteraction, { once: true });
+    document.addEventListener('mousemove', handleFirstInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('mousemove', handleFirstInteraction);
+    };
+  }, [initializeAudio]);
 
   const handleNavigate = (page: 'home' | 'library' | 'philosophy' | 'about' | 'credits') => {
     setView(page);
