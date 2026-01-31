@@ -752,7 +752,7 @@ const Hero = ({ onEnter }: { onEnter: () => void }) => {
         
         <button 
           onMouseEnter={playHover}
-          onClick={() => { playClick(); window.location.href = '#library'; }}
+          onClick={() => { playClick(); onEnter(); }}
           className="group relative px-8 py-4 bg-transparent border border-zinc-700 text-white font-display font-bold tracking-widest overflow-hidden hover:border-flame-500 transition-colors duration-300"
         >
           <span className="relative z-10 group-hover:text-flame-500 transition-colors">ABRIR BIBLIOTECA</span>
