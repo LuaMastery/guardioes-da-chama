@@ -166,6 +166,12 @@ const NotificationCenter = () => {
             <span className="text-[10px] text-zinc-500 bg-zinc-900 px-2 py-1 rounded border border-zinc-800">v1.4.0</span>
           </div>
 
+          <div className="p-3 bg-yellow-500/10 border-b border-yellow-500/20">
+            <p className="text-xs text-yellow-400 leading-relaxed text-center">
+              <strong>🚧 Em Desenvolvimento:</strong> O sistema de notificação está em melhoria. Algumas funcionalidades podem não estar disponíveis temporariamente.
+            </p>
+          </div>
+
           <div className="max-h-64 overflow-y-auto">
             {permission === 'default' && (
               <div className="p-4 bg-flame-600/10 border-b border-flame-500/20">
